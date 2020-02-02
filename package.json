@@ -11,6 +11,19 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "npm run lint:fix",
+      "npm run format",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/dmscn/retro-board.git"
