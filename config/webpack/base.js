@@ -21,7 +21,6 @@ module.exports = {
   resolve: {
     alias: {
       '@components': './src/components',
-      '@containers': './src/containers',
       '@pages': './src/pages',
       '@utils': './src/utils',
       '@helpers': './src/helpers',
