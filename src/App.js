@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ThemeProvider, Text } from '@gympass/yoga'
 
 const App = () => (
-  <>
-    <h1>Hello World</h1>
-  </>
+  <ThemeProvider theme="corporate">
+    <Text.H1>Hello World</Text.H1>
+  </ThemeProvider>
 )
 
 ReactDOM.render(<App />, document.getElementById('app'))
