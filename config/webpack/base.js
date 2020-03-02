@@ -1,10 +1,12 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
+const srcPath = path.resolve(__dirname, '..', '..', 'src')
+
 module.exports = {
-  entry: './src/App.js',
+  entry: path.join(srcPath, 'App.js'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(srcPath, 'dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -20,12 +22,15 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@components': './src/components',
-      '@pages': './src/pages',
-      '@utils': './src/utils',
-      '@helpers': './src/helpers',
-      '@hooks': './src/hooks',
+      '@components': path.join(srcPath, 'components'),
+      '@pages': path.join(srcPath, 'pages'),
+      '@utils': path.join(srcPath, 'utils'),
+      '@helpers': path.join(srcPath, 'helpers'),
+      '@hooks': path.join(srcPath, 'hooks'),
     },
+    extensions: ['.js', '.jsx'],
   },
-  plugins: [new HTMLWebpackPlugin({ template: './src/index.html' })],
+  plugins: [
+    new HTMLWebpackPlugin({ template: path.join(srcPath, 'index.html') }),
+  ],
 }
