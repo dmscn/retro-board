@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react'
 import StoreContext from '@store/config'
 
-import counterReducer, { counterStore } from './Counter'
+import counterReducer, { counterStore } from '@store/Counter'
+import authReducer, { authStore } from '@store/Auth'
 
 export default function Store({ children }) {
   const [counterState, counterDispatch] = useReducer(
@@ -9,11 +10,19 @@ export default function Store({ children }) {
     counterStore
   )
 
+  const [authState, authDispatch] = useReducer(authReducer, authStore)
+
+  const triggerDispatches = action => {
+    const dispatchs = [counterDispatch, authDispatch]
+    dispatchs.forEach(dispatcher => dispatcher(action))
+  }
+
   const combineReducers = {
     store: {
       ...counterState,
+      ...authState,
     },
-    dispatch: action => counterDispatch(action),
+    dispatch: action => triggerDispatches(action),
   }
 
   return (
