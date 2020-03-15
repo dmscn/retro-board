@@ -5,14 +5,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import StoreProvider from '@store'
 
+import GlobalStyled from './globalStyles'
 import Welcome from '@pages/Welcome'
 import Board from '@pages/Board'
 
 const App = () => (
   <Router>
+    <GlobalStyled />
     <ThemeProvider theme="corporate">
       <StoreProvider>
-        <Text.H1>Hello World</Text.H1>
         <Switch>
           <Route path="/board/:slug">
             <Board />
