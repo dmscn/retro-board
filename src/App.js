@@ -1,13 +1,11 @@
+import { ThemeProvider } from '@gympass/yoga'
+import Board from '@pages/Board'
+import Welcome from '@pages/Welcome'
+import StoreProvider from '@store'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ThemeProvider, Text } from '@gympass/yoga'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
-import StoreProvider from '@store'
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyled from './globalStyles'
-import Welcome from '@pages/Welcome'
-import Board from '@pages/Board'
 
 const App = () => (
   <Router>
