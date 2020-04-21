@@ -13,7 +13,7 @@ import theme from '@assets/style/theme'
 const App = () => (
   <Router>
     <GlobalStyled />
-    <YogaProvider theme="corporate">
+    <YogaProvider theme="Corporate">
       <ThemeProvider theme={theme}>
         <StoreProvider>
           <Switch>
