@@ -16,11 +16,12 @@ const config = {
 firebase.initializeApp(config)
 firebase.analytics()
 
-const firestore = firebase.firestore()
+export const auth = firebase.auth()
+export const db = firebase.firestore()
 
-const getCollection = collection => firestore.collection(collection)
+const getCollection = collection => db.collection(collection)
 
-export const subscribeTo = collection => callback =>
+export const subscribeToCollection = (collection, callback) =>
   getCollection(collection).onSnapshot(snapshot => {
     const newRegisters = snapshot.docs.map(doc => ({
       id: doc.id,
@@ -30,5 +31,5 @@ export const subscribeTo = collection => callback =>
     callback(newRegisters)
   })
 
-export const addTo = collection => register =>
+export const addToCollection = (collection, register) =>
   getCollection(collection).add(register)

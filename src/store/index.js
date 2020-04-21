@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react'
-import StoreContext from '@store/config'
 
-import counterReducer, { counterStore } from '@store/Counter'
 import authReducer, { authStore } from '@store/Auth'
+import counterReducer, { counterStore } from '@store/Counter'
+import StoreContext from '@store/config'
 
 export default function Store({ children }) {
   const [counterState, counterDispatch] = useReducer(
