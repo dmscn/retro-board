@@ -30,6 +30,7 @@ module.exports = {
       '@hooks': path.join(srcPath, 'hooks'),
       '@store': path.join(srcPath, 'store'),
       '@services': path.join(srcPath, 'services'),
+      '@assets': path.join(srcPath, 'assets'),
     },
     extensions: ['.js', '.jsx'],
   },
