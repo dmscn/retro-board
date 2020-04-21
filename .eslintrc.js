@@ -12,7 +12,7 @@ module.exports = {
     'prettier/react',
   ],
   plugins: ['react', 'prettier'],
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -32,6 +32,6 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    "react/prop-types": 'error',
+    'react/prop-types': 'off',
   },
 }
