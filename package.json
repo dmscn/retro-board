@@ -9,8 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "pretty-quick --pattern '**/*.*(js|jsx)' --verbose",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "flow": "flow"
+    "lint:fix": "npm run lint -- --fix"
   },
   "husky": {
     "hooks": {
@@ -56,7 +55,6 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
-    "@babel/preset-flow": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
@@ -64,7 +62,6 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.2",
-    "flow-bin": "^0.123.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.1",
     "lint-staged": "^10.0.7",
