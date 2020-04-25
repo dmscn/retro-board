@@ -18,9 +18,15 @@ export default function Welcome() {
   return (
     <Styled.ViewportLane>
       <Container>
-        <Text.H1 variant="primary">Easy meeting management.</Text.H1>
-        <Button onClick={createNewBoard}>Try it</Button>
-        <WelcomeIllustration />
+        <Styled.CenteredRow>
+          <Text.H1 variant="primary">Easy meeting management.</Text.H1>
+        </Styled.CenteredRow>
+        <Styled.CenteredRow>
+          <Button onClick={createNewBoard}>Try it</Button>
+        </Styled.CenteredRow>
+        <Styled.IllustrationWrapper>
+          <WelcomeIllustration />
+        </Styled.IllustrationWrapper>
       </Container>
     </Styled.ViewportLane>
   )
