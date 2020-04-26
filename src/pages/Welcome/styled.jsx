@@ -20,6 +20,7 @@ export const CenteredRow = styled(Row)`
   display: flex;
   justify-content: center;
   margin: 16px 0;
+  text-align: center;
 `
 export const IllustrationWrapper = styled(CenteredRow)`
   margin: 48px 0;

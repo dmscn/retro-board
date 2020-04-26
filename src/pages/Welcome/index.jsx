@@ -25,7 +25,12 @@ export default function Welcome() {
           <Button onClick={createNewBoard}>Try it</Button>
         </Styled.CenteredRow>
         <Styled.IllustrationWrapper>
-          <WelcomeIllustration />
+          <WelcomeIllustration
+            preserveAspectRatio="xMidYMin slice"
+            height={300}
+            width={300}
+            viewPort="0 0 300 300"
+          />
         </Styled.IllustrationWrapper>
       </Container>
     </Styled.ViewportLane>
