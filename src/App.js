@@ -7,13 +7,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyled from './globalStyles'
-
 import theme from '@assets/style/theme'
 
 const App = () => (
   <Router>
     <GlobalStyled />
-    <YogaProvider theme="Corporate">
+    <YogaProvider theme="Wellness">
       <ThemeProvider theme={theme}>
         <StoreProvider>
           <Switch>

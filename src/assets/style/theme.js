@@ -1,7 +1,4 @@
-export default {
-  colors: {
-    dark: [],
-    light: [],
-    primary: '#cecece',
-  },
-}
+import yogaTokens from '@gympass/yoga-tokens'
+import { themes } from '@gympass/yoga'
+
+export default themes.Wellness(yogaTokens)
