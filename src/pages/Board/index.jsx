@@ -1,53 +1,43 @@
-import { Button, Input, Text } from '@gympass/yoga'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import * as firebaseService from '../../services/firebase'
+import Page from '@components/Page'
+import BoardColumn from './BoardColumn'
+import { Container, Col, Row } from '@gympass/yoga'
+import styled from 'styled-components'
 
-const InputComponent = () => {
-  const [title, setTitle] = React.useState('')
+const FullHeightRow = styled(Row)`
+  height: 100%;
+`
 
-  const addNewTest = firebaseService.addTo('test')
-
-  const onSubmit = event => {
-    event.preventDefault()
-
-    addNewTest({
-      title,
-      likes: 0,
-    }).then(() => {
-      setTitle('')
-    })
-  }
-
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <Input value={title} onChange={e => setTitle(e.target.value)} />
-        <Button onClick={onSubmit}>Submit</Button>
-      </form>
-    </div>
-  )
-}
+const ColumnsList = ({ columns }) => (
+  <Container>
+    <FullHeightRow>
+      {columns.map(({ id, title, cards }, index) => (
+        <Col xxs={12} lg={4} xl={3} key={id}>
+          <BoardColumn title={title} cards={cards} active={index === 0} />
+        </Col>
+      ))}
+    </FullHeightRow>
+  </Container>
+)
 
 export default function Board() {
   const { slug } = useParams()
-  const [registers, setRegisters] = React.useState([])
-
-  const subscribeToTests = firebaseService.subscribeTo('test')
-
-  React.useEffect(() => {
-    subscribeToTests(newDocs => setRegisters(newDocs))
-  }, [])
+  const cards = [
+    { id: 42, title: 'Card A', cards: [] },
+    { id: 43, title: 'Card B', cards: [] },
+    { id: 44, title: 'Card C', cards: [] },
+  ]
+  const columns = [
+    { id: 42, title: 'Went well', cards: cards },
+    { id: 43, title: 'Went bad', cards: [] },
+    { id: 44, title: 'Action points', cards: [] },
+  ]
 
   return (
-    <div>
+    <Page>
       <div>hello from board slug: {slug}</div>
-      {registers.map(({ id, title }) => (
-        <div key={id}>
-          <Text>{title}</Text>
-        </div>
-      ))}
-      <InputComponent />
-    </div>
+      {columns && <ColumnsList columns={columns} />}
+    </Page>
   )
 }
