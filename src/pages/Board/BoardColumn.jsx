@@ -1,7 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { theme, Text } from '@gympass/yoga'
+import { theme, Text, Button } from '@gympass/yoga'
 import Card from './Card'
+import { PlusCircle } from 'react-feather'
 
 const graySpacerStyle = css`
   padding: ${theme.spacing.small}px;
@@ -44,6 +45,9 @@ export default function BoardColumn({ title, cards, active }) {
         {cards.map(card => (
           <Card key={card.id} card={card} />
         ))}
+        <Button.Text inverted onClick={console.log}>
+          <PlusCircle />
+        </Button.Text>
       </Content>
     </ColumnWrapper>
   )
