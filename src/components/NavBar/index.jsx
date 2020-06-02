@@ -5,7 +5,6 @@ import { Container, Row, theme } from '@gympass/yoga'
 import styled from 'styled-components'
 
 const NavWrapper = styled.nav`
-  height: ${theme.spacing.large};
   background: ${theme.colors.primary[2]};
 `
 
