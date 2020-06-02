@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { theme, Text, Tag } from '@gympass/yoga'
+import { theme, Text, Tag, Input } from '@gympass/yoga'
 import { MessageCircle, ThumbsUp, PlusCircle } from 'react-feather'
 
 const CardWrapper = styled.article`
@@ -28,6 +28,7 @@ const CounterText = styled(Text.Small)`
 
 const Label = styled(Tag)`
   margin-right: ${theme.spacing.xsmall}px;
+  cursor: pointer;
 `
 
 const IconWrapper = styled.div`
@@ -44,6 +45,11 @@ const IconWrapper = styled.div`
 const LabelRow = styled.div`
   display: flex;
   align-items: center;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const AddButton = styled.button`
@@ -53,6 +59,7 @@ const AddButton = styled.button`
   padding: 0 ${theme.spacing.xxsmall}px;
   background-color: transparent;
   color: ${theme.colors.gray[4]};
+  cursor: pointer;
 `
 
 const Title = styled(Text.H3)`
@@ -60,6 +67,10 @@ const Title = styled(Text.H3)`
 `
 const Description = styled(Text.Small)`
   margin-bottom: ${theme.spacing.small}px;
+`
+
+const CommentInput = styled(Input)`
+  margin-top: ${theme.spacing.small}px;
 `
 
 export default function Card() {
@@ -72,7 +83,7 @@ export default function Card() {
             {label}
           </Label>
         ))}
-        <AddButton small inverted>
+        <AddButton>
           <PlusCircle width={20} />
         </AddButton>
       </LabelRow>
@@ -85,6 +96,7 @@ export default function Card() {
         officia sunt officia exercitation labore ex sint dolor aliquip dolor
         nisi.
       </Description>
+
       <ActionRow>
         <IconWrapper>
           <ThumbsUp />
@@ -95,6 +107,8 @@ export default function Card() {
           <CounterText>10</CounterText>
         </IconWrapper>
       </ActionRow>
+
+      <CommentInput full label="Add a comment..." />
     </CardWrapper>
   )
 }
