@@ -9,6 +9,7 @@ const CardWrapper = styled.article`
   min-height: ${theme.spacing.huge}px;
   padding: ${theme.spacing.small}px;
   border-radius: ${theme.spacing.xxsmall}px;
+  box-shadow: ${theme.elevations.small};
 
   background-color: ${theme.colors.white};
 
