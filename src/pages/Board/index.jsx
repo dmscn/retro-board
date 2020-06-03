@@ -2,12 +2,16 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import Page from '@components/Page'
 import BoardColumn from './BoardColumn'
-import { Container, Col, Row, theme } from '@gympass/yoga'
+import { theme } from '@gympass/yoga'
 import styled from 'styled-components'
 import { PlusCircle } from 'react-feather'
 
-const FullHeightRow = styled(Row)`
+const ListWrapper = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
   height: 100%;
+  overflow: auto;
 `
 
 const AddNewColumn = styled.div`
@@ -29,20 +33,14 @@ const AddNewColumn = styled.div`
 `
 
 const ColumnsList = ({ columns }) => (
-  <Container>
-    <FullHeightRow>
-      {columns.map(({ id, title, cards }, index) => (
-        <Col xxs={12} lg={4} xl={3} key={id}>
-          <BoardColumn title={title} cards={cards} active={index === 0} />
-        </Col>
-      ))}
-      <Col xxs={12} lg={4} xl={3}>
-        <AddNewColumn>
-          <PlusCircle width={80} height={80} />
-        </AddNewColumn>
-      </Col>
-    </FullHeightRow>
-  </Container>
+  <ListWrapper>
+    {columns.map(({ id, title, cards }, index) => (
+      <BoardColumn key={id} title={title} cards={cards} active={index === 0} />
+    ))}
+    <AddNewColumn>
+      <PlusCircle width={80} height={80} />
+    </AddNewColumn>
+  </ListWrapper>
 )
 
 export default function Board() {
