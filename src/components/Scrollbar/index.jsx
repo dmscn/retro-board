@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-const ScrollBar = styled.div`
+const Scrollbar = styled.div`
   box-sizing: border-box;
   height: 100%;
   width: 100%;
@@ -10,4 +10,4 @@ const ScrollBar = styled.div`
   `}
 `
 
-export default ScrollBar
+export default Scrollbar

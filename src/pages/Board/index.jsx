@@ -1,27 +1,27 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import Page from '@components/Page'
+import Scrollbar from '@components/Scrollbar'
 import BoardColumn from './BoardColumn'
 import { theme } from '@gympass/yoga'
 import styled from 'styled-components'
 import { PlusCircle } from 'react-feather'
 
+const ScrollbarWithPadding = styled(Scrollbar)`
+  padding: ${theme.spacing.medium}px;
+`
+
 const ListWrapper = styled.section`
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
+  display: inline-flex;
   height: 100%;
-  overflow: auto;
 `
 
 const AddNewColumn = styled.div`
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100%;
-  color: ${theme.colors.gray[1]};
+  width: calc(${theme.spacing.huge}px * 5);
+  color: ${theme.colors.gray[2]};
   cursor: pointer;
 
   transition-property: color;
@@ -44,7 +44,6 @@ const ColumnsList = ({ columns }) => (
 )
 
 export default function Board() {
-  const { slug } = useParams()
   const cards = [
     { id: 42, title: 'Card A', cards: [] },
     { id: 43, title: 'Card B', cards: [] },
@@ -58,8 +57,9 @@ export default function Board() {
 
   return (
     <Page>
-      <div>hello from board slug: {slug}</div>
-      {columns && <ColumnsList columns={columns} />}
+      <ScrollbarWithPadding horizontal>
+        {columns && <ColumnsList columns={columns} />}
+      </ScrollbarWithPadding>
     </Page>
   )
 }

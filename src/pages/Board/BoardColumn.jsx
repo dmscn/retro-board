@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { theme, Text, Button } from '@gympass/yoga'
 import Card from './Card'
 import { PlusCircle } from 'react-feather'
-import ScrollBar from '@components/ScrollBar'
+import Scrollbar from '@components/Scrollbar'
 
 const graySpacerStyle = css`
   box-sizing: border-box;
@@ -14,10 +14,9 @@ const graySpacerStyle = css`
 
 const ColumnWrapper = styled.article`
   display: flex;
-  flex: 1;
   flex-direction: column;
   height: 100%;
-  width: 100%;
+  width: calc(${theme.spacing.huge}px * 6);
   margin-right: ${theme.spacing.medium}px;
 `
 
@@ -25,7 +24,7 @@ const Header = styled.article`
   box-sizing: border-box;
   ${graySpacerStyle}
   border-bottom: ${({ active, theme }) =>
-    active && `2px solid ${theme.colors.primary[1]}`}
+    active && `2px solid ${theme.colors.primary[1]}`};
 `
 
 const HeaderText = styled(Text.H4)`
@@ -47,7 +46,7 @@ export default function BoardColumn({ title, cards, active }) {
         <HeaderText>{title}</HeaderText>
       </Header>
 
-      <ScrollBar vertical>
+      <Scrollbar vertical>
         <Content>
           {cards.map(card => (
             <Card key={card.id} card={card} />
@@ -56,7 +55,7 @@ export default function BoardColumn({ title, cards, active }) {
             <PlusCircle />
           </Button.Text>
         </Content>
-      </ScrollBar>
+      </Scrollbar>
     </ColumnWrapper>
   )
 }
