@@ -1,11 +1,17 @@
 import React from 'react'
 import Avatar from '@components/Avatar'
-import { Container, Row, theme } from '@gympass/yoga'
+import { theme } from '@gympass/yoga'
 
 import styled from 'styled-components'
 
 const NavWrapper = styled.nav`
-  background: ${theme.colors.primary[2]};
+  box-sizing: border-box;
+  background: ${theme.colors.primary[1]};
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: ${theme.spacing.xsmall}px ${theme.spacing.small}px;
 `
 
 const LogoWrapper = styled.span`
@@ -14,21 +20,10 @@ const LogoWrapper = styled.span`
   justify-content: center;
   align-items: center;
 `
-const CustomRow = styled(Row)`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: ${theme.spacing.xsmall}px ${theme.spacing.small}px;
-`
 const NavBar = () => (
   <NavWrapper>
-    <Container>
-      <CustomRow>
-        <LogoWrapper>🦛</LogoWrapper>
-        <Avatar src="https://source.unsplash.com/random" />
-      </CustomRow>
-    </Container>
+    <LogoWrapper>🦛</LogoWrapper>
+    <Avatar src="https://source.unsplash.com/random" />
   </NavWrapper>
 )
 
