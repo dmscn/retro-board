@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import styled, { keyframes } from 'styled-components'
 import { fadeIn } from 'react-animations'
 import { theme } from '@gympass/yoga'
@@ -8,7 +9,9 @@ const ANIMATION_DURATION = 800
 const fadeInAnimation = keyframes`${fadeIn}`
 
 const BackgroundLayer = styled.section`
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -30,10 +33,13 @@ const ModalCard = styled.main`
   box-shadow: ${theme.elevations.large};
 `
 
+const modalRoot = document.getElementById('modal-root')
+
 export default function Modal({ children }) {
-  return (
+  return ReactDOM.createPortal(
     <BackgroundLayer>
       <ModalCard>{children}</ModalCard>
-    </BackgroundLayer>
+    </BackgroundLayer>,
+    modalRoot
   )
 }

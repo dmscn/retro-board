@@ -7,6 +7,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+
+  #modal-root {
+    position: relative;
+    z-index: 99999;
+  }
 `
 
 export default GlobalStyle
