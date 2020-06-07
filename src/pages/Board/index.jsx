@@ -1,10 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
+import { theme } from '@gympass/yoga'
+import { PlusCircle } from 'react-feather'
+
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import BoardColumn from './BoardColumn'
-import { theme } from '@gympass/yoga'
-import styled from 'styled-components'
-import { PlusCircle } from 'react-feather'
+import AddCardModal from './AddCardModal'
 
 const ScrollbarWithPadding = styled(Scrollbar)`
   padding: ${theme.spacing.medium}px;
@@ -60,6 +62,7 @@ export default function Board() {
       <ScrollbarWithPadding horizontal>
         {columns && <ColumnsList columns={columns} />}
       </ScrollbarWithPadding>
+      <AddCardModal />
     </Page>
   )
 }
