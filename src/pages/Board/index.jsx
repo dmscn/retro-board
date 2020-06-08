@@ -7,6 +7,7 @@ import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import BoardColumn from './BoardColumn'
 import AddCardModal from './AddCardModal'
+import { BoardProvider } from './BoardContext'
 
 const ScrollbarWithPadding = styled(Scrollbar)`
   padding: ${theme.spacing.medium}px;
@@ -46,6 +47,8 @@ const ColumnsList = ({ columns }) => (
 )
 
 export default function Board() {
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+
   const cards = [
     { id: 42, title: 'Card A', cards: [] },
     { id: 43, title: 'Card B', cards: [] },
@@ -57,12 +60,21 @@ export default function Board() {
     { id: 44, title: 'Action points', cards: [] },
   ]
 
+  const toggleModal = () => setIsModalOpen(prev => !prev)
+
   return (
-    <Page>
-      <ScrollbarWithPadding horizontal>
-        {columns && <ColumnsList columns={columns} />}
-      </ScrollbarWithPadding>
-      <AddCardModal />
-    </Page>
+    <BoardProvider
+      value={{
+        isAddNewCardModalOpen: isModalOpen,
+        toggleAddNewCardModal: toggleModal,
+      }}
+    >
+      <Page>
+        <ScrollbarWithPadding horizontal>
+          <ColumnsList columns={columns} />
+        </ScrollbarWithPadding>
+        {isModalOpen && <AddCardModal />}
+      </Page>
+    </BoardProvider>
   )
 }
