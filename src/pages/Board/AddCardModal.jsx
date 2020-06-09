@@ -28,7 +28,7 @@ export default function AddCardModal() {
   }, [])
 
   return (
-    <Modal>
+    <Modal onClose={toggleAddNewCardModal}>
       <Field>
         <Text.H2 variant="primary">Criar novo cartão</Text.H2>
       </Field>

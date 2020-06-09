@@ -8,7 +8,7 @@ import hexToRgb from '@utils/hexToRgb'
 const ANIMATION_DURATION = 800
 const fadeInAnimation = keyframes`${fadeIn}`
 
-const BackgroundLayer = styled.section`
+const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -17,9 +17,14 @@ const BackgroundLayer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${props => hexToRgb(theme.colors.dark(props), 0.5)};
-
   animation: ${ANIMATION_DURATION}ms ${fadeInAnimation};
+`
+const BackgroundLayer = styled.section`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: ${props => hexToRgb(theme.colors.dark(props), 0.5)};
+  z-index: 1000;
 `
 const ModalCard = styled.main`
   box-sizing: border-box;
@@ -31,15 +36,17 @@ const ModalCard = styled.main`
   border-radius: ${theme.spacing.xxsmall}px;
   background-color: ${theme.colors.white};
   box-shadow: ${theme.elevations.large};
+  z-index: 1001;
 `
 
 const modalRoot = document.getElementById('modal-root')
 
-export default function Modal({ children }) {
+export default function Modal({ children, onClose }) {
   return ReactDOM.createPortal(
-    <BackgroundLayer>
+    <Container>
+      <BackgroundLayer onClick={onClose} />
       <ModalCard>{children}</ModalCard>
-    </BackgroundLayer>,
+    </Container>,
     modalRoot
   )
 }
