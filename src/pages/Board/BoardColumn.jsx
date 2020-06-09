@@ -34,10 +34,11 @@ const HeaderText = styled(Text.H4)`
 
 const Content = styled.main`
   ${graySpacerStyle}
+  margin: 0;
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: calc(100% - ${theme.spacing.small}px);
+  min-height: 100%;
 `
 
 export default function BoardColumn({ title, cards, active }) {
