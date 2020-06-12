@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme, Text, Button } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
-import useBoardContext from './BoardContext'
 import Card from './Card'
 import Scrollbar from '@components/Scrollbar'
 
@@ -41,8 +40,7 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({ title, cards, active }) {
-  const { toggleAddNewCardModal } = useBoardContext()
+export default function BoardColumn({ title, cards, active, onAddNewCard }) {
   return (
     <ColumnWrapper>
       <Header as="header" active={active}>
@@ -54,7 +52,7 @@ export default function BoardColumn({ title, cards, active }) {
           {cards.map(card => (
             <Card key={card.id} card={card} />
           ))}
-          <Button.Text inverted onClick={toggleAddNewCardModal}>
+          <Button.Text inverted onClick={onAddNewCard}>
             <PlusCircle />
           </Button.Text>
         </Content>

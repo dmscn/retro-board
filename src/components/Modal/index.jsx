@@ -32,7 +32,6 @@ const ModalCard = styled.main`
   flex-direction: column;
   padding: ${theme.spacing.large}px;
   min-width: calc(${theme.spacing.huge}px * 6);
-  min-height: calc(${theme.spacing.huge}px * 4);
   border-radius: ${theme.spacing.xxsmall}px;
   background-color: ${theme.colors.white};
   box-shadow: ${theme.elevations.large};

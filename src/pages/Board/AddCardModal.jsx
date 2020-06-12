@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Text, Input, TextArea, Button, theme } from '@gympass/yoga'
 import Modal from '@components/Modal'
-import useBoardContext from './BoardContext'
 
 const CustomTextArea = styled(TextArea)`
   > div {
@@ -15,20 +14,19 @@ const Field = styled.div`
 `
 
 const ButtonsRow = styled.div`
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
 `
 
-export default function AddCardModal() {
+export default function AddCardModal({ onCancel }) {
   const inputRef = React.useRef()
-  const { toggleAddNewCardModal } = useBoardContext()
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
 
   return (
-    <Modal onClose={toggleAddNewCardModal}>
+    <Modal onClose={onCancel}>
       <Field>
         <Text.H2 variant="primary">Criar novo cartão</Text.H2>
       </Field>
@@ -39,7 +37,7 @@ export default function AddCardModal() {
         <CustomTextArea placeholder="Descrição" full />
       </Field>
       <ButtonsRow>
-        <Button.Text onClick={toggleAddNewCardModal}>Cancelar</Button.Text>
+        <Button.Text onClick={onCancel}>Cancelar</Button.Text>
         <Button>Criar</Button>
       </ButtonsRow>
     </Modal>

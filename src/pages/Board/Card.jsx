@@ -13,7 +13,7 @@ const CardWrapper = styled.article`
 
   background-color: ${theme.colors.white};
 
-  &: not(: last-child) {
+  &: not(:last-child) {
     margin-bottom: ${theme.spacing.medium}px;
   }
 `

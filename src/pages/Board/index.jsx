@@ -7,7 +7,7 @@ import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import BoardColumn from './BoardColumn'
 import AddCardModal from './AddCardModal'
-import { BoardProvider } from './BoardContext'
+import AddColumnModal from './AddColumnModal'
 
 const ScrollbarWithPadding = styled(Scrollbar)`
   padding: ${theme.spacing.medium}px;
@@ -35,19 +35,26 @@ const AddNewColumn = styled.div`
   }
 `
 
-const ColumnsList = ({ columns }) => (
+const ColumnsList = ({ columns, onAddNewColumn, onAddNewCard }) => (
   <ListWrapper>
     {columns.map(({ id, title, cards }, index) => (
-      <BoardColumn key={id} title={title} cards={cards} active={index === 0} />
+      <BoardColumn
+        key={id}
+        title={title}
+        cards={cards}
+        active={index === 0}
+        onAddNewCard={onAddNewCard}
+      />
     ))}
-    <AddNewColumn>
+    <AddNewColumn onClick={onAddNewColumn}>
       <PlusCircle width={80} height={80} />
     </AddNewColumn>
   </ListWrapper>
 )
 
 export default function Board() {
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [isCardModalOpen, setCardModal] = React.useState(false)
+  const [isColumnModalOpen, setColumnModal] = React.useState(false)
 
   const cards = [
     { id: 42, title: 'Card A', cards: [] },
@@ -60,21 +67,20 @@ export default function Board() {
     { id: 44, title: 'Action points', cards: [] },
   ]
 
-  const toggleModal = () => setIsModalOpen(prev => !prev)
+  const toggleCardModal = () => setCardModal(prev => !prev)
+  const toggleColumnModal = () => setColumnModal(prev => !prev)
 
   return (
-    <BoardProvider
-      value={{
-        isAddNewCardModalOpen: isModalOpen,
-        toggleAddNewCardModal: toggleModal,
-      }}
-    >
-      <Page>
-        <ScrollbarWithPadding horizontal>
-          <ColumnsList columns={columns} />
-        </ScrollbarWithPadding>
-        {isModalOpen && <AddCardModal />}
-      </Page>
-    </BoardProvider>
+    <Page>
+      <ScrollbarWithPadding horizontal>
+        <ColumnsList
+          columns={columns}
+          onAddNewCard={toggleCardModal}
+          onAddNewColumn={toggleColumnModal}
+        />
+      </ScrollbarWithPadding>
+      {isCardModalOpen && <AddCardModal onCancel={toggleCardModal} />}
+      {isColumnModalOpen && <AddColumnModal onCancel={toggleColumnModal} />}
+    </Page>
   )
 }
