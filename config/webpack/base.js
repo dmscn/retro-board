@@ -1,12 +1,13 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
-const srcPath = path.resolve(__dirname, '..', '..', 'src')
+const rootPath = path.resolve(__dirname, '..', '..')
+const srcPath = path.resolve(rootPath, 'src')
 
 module.exports = {
   entry: path.join(srcPath, 'App.js'),
   output: {
-    path: path.resolve(srcPath, 'dist'),
+    path: path.resolve(rootPath, 'dist'),
     filename: 'bundle.js',
     publicPath: '/',
   },
