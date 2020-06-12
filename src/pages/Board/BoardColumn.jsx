@@ -4,6 +4,7 @@ import { theme, Text, Button } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
 import Card from './Card'
 import Scrollbar from '@components/Scrollbar'
+import AddCardModal from './AddCardModal'
 
 const graySpacerStyle = css`
   box-sizing: border-box;
@@ -40,7 +41,11 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({ title, cards, active, onAddNewCard }) {
+export default function BoardColumn({ title, cards, active }) {
+  const [isModalOpen, setModalOpen] = React.useState(false)
+
+  const toggleModal = () => setModalOpen(prev => !prev)
+
   return (
     <ColumnWrapper>
       <Header as="header" active={active}>
@@ -52,11 +57,12 @@ export default function BoardColumn({ title, cards, active, onAddNewCard }) {
           {cards.map(card => (
             <Card key={card.id} card={card} />
           ))}
-          <Button.Text inverted onClick={onAddNewCard}>
+          <Button.Text inverted onClick={toggleModal}>
             <PlusCircle />
           </Button.Text>
         </Content>
       </Scrollbar>
+      {isModalOpen && <AddCardModal onCancel={toggleModal} />}
     </ColumnWrapper>
   )
 }
