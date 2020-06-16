@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { theme, Text, Tag, Input } from '@gympass/yoga'
 import { MessageCircle, ThumbsUp, PlusCircle } from 'react-feather'
 
+import AddLabelModal from './AddLabelModal'
+
 const CardWrapper = styled.article`
   display: flex;
   flex-direction: column;
@@ -76,6 +78,10 @@ const CommentInput = styled(Input)`
 
 export default function Card() {
   const labels = ['label 1', 'label 2', 'label 3', 'label 4']
+  const [isModalOpen, setModalOpen] = React.useState(false)
+
+  const toggleModal = () => setModalOpen(prev => !prev)
+
   return (
     <CardWrapper>
       <LabelRow>
@@ -84,7 +90,7 @@ export default function Card() {
             {label}
           </Label>
         ))}
-        <AddButton>
+        <AddButton onClick={toggleModal}>
           <PlusCircle width={20} />
         </AddButton>
       </LabelRow>
@@ -110,6 +116,7 @@ export default function Card() {
       </ActionRow>
 
       <CommentInput full label="Add a comment..." />
+      {isModalOpen && <AddLabelModal onCancel={toggleModal} />}
     </CardWrapper>
   )
 }
