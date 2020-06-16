@@ -2,6 +2,7 @@
   "name": "retro-board",
   "version": "0.0.1",
   "description": "Retrospective Board Web Application",
+  "homepage": "https://dmscn.github.io/retro-board/",
   "main": "App.js",
   "scripts": {
     "dev": "webpack-dev-server --open --watch --config config/webpack/dev.js",
@@ -41,7 +42,6 @@
   "bugs": {
     "url": "https://github.com/dmscn/retro-board/issues"
   },
-  "homepage": "https://github.com/dmscn/retro-board#readme",
   "dependencies": {
     "@gympass/yoga": "^2.4.1",
     "dotenv": "^8.2.0",
