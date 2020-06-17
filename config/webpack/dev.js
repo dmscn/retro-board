@@ -5,7 +5,10 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'source-map',
   devServer: {
+    contentBase: './dist',
     port: 8008,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/retro-board',
+    },
   },
 })
