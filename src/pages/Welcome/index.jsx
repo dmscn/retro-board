@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom'
 import { Container, Button, Text } from '@gympass/yoga'
 import WelcomeIllustration from '@assets/img/illustrations/svg/welcome.svg'
 import {
-  addToCollection,
   getCurrentUser,
   signInUserWithGoogle,
+  addNewBoard,
 } from '@services/firebase'
 
 import * as Styled from './styled'
@@ -16,7 +16,7 @@ export default function Welcome() {
   const createNewBoard = async () => {
     if (!getCurrentUser()) await signInUserWithGoogle()
     const { uid: userId } = getCurrentUser()
-    const { id } = await addToCollection('board', {
+    const { id } = await addNewBoard({
       name: 'Untitled',
       userId,
     })

@@ -39,6 +39,19 @@ export const subscribeToCollection = (collection, callback) =>
   })
 
 /*
+ * Board methods
+ */
+
+const BOARD_COLLECTION = 'board'
+
+export const getBoardById = id =>
+  getCollection(BOARD_COLLECTION)
+    .doc(id)
+    .get()
+
+export const addNewBoard = board => addToCollection(BOARD_COLLECTION, board)
+
+/*
  * Authentication methods
  */
 export const signInUserWithGoogle = () =>

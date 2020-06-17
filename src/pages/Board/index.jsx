@@ -1,7 +1,10 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
+
+import { getBoardById } from '@services/firebase'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
@@ -46,20 +49,19 @@ const ColumnsList = ({ columns, onAddNewColumn }) => (
 )
 
 export default function Board() {
-  const cards = [
-    { id: 42, title: 'Card A', cards: [] },
-    { id: 43, title: 'Card B', cards: [] },
-    { id: 44, title: 'Card C', cards: [] },
-  ]
-  const columns = [
-    { id: 42, title: 'Went well', cards: cards },
-    { id: 43, title: 'Went bad', cards: [] },
-    { id: 44, title: 'Action points', cards: [] },
-  ]
-
   const [isModalOpen, setModalOpen] = React.useState(false)
-
   const toggleModal = () => setModalOpen(prev => !prev)
+
+  const [columns, setColumns] = React.useState([])
+  const { slug } = useParams()
+  React.useEffect(() => {
+    getBoardById(slug).then(doc => {
+      if (doc.exists) {
+        const { columns = [] } = doc.data()
+        setColumns(columns)
+      }
+    })
+  }, [])
 
   return (
     <Page>
