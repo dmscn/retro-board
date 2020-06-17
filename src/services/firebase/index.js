@@ -16,10 +16,17 @@ const config = {
 firebase.initializeApp(config)
 firebase.analytics()
 
-export const auth = firebase.auth()
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export const db = firebase.firestore()
 
 const getCollection = collection => db.collection(collection)
+
+/*
+ * Collections methods
+ */
+
+export const addToCollection = (collection, register) =>
+  getCollection(collection).add(register)
 
 export const subscribeToCollection = (collection, callback) =>
   getCollection(collection).onSnapshot(snapshot => {
@@ -31,5 +38,10 @@ export const subscribeToCollection = (collection, callback) =>
     callback(newRegisters)
   })
 
-export const addToCollection = (collection, register) =>
-  getCollection(collection).add(register)
+/*
+ * Authentication methods
+ */
+export const signInUserWithGoogle = () =>
+  firebase.auth().signInWithPopup(googleAuthProvider)
+
+export const getCurrentUser = () => firebase.auth().currentUser

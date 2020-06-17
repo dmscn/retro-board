@@ -2,8 +2,11 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, Button, Text } from '@gympass/yoga'
 import WelcomeIllustration from '@assets/img/illustrations/svg/welcome.svg'
-
-import { generateNewBoardHash } from '@services/api'
+import {
+  addToCollection,
+  getCurrentUser,
+  signInUserWithGoogle,
+} from '@services/firebase'
 
 import * as Styled from './styled'
 
@@ -11,8 +14,13 @@ export default function Welcome() {
   const history = useHistory()
 
   const createNewBoard = async () => {
-    const hash = await generateNewBoardHash()
-    history.push(`/board/${hash}`)
+    if (!getCurrentUser()) await signInUserWithGoogle()
+    const { uid: userId } = getCurrentUser()
+    const { id } = await addToCollection('board', {
+      name: 'Untitled',
+      userId,
+    })
+    history.push(`/board/${id}`)
   }
 
   return (
