@@ -41,7 +41,7 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({ title, cards, active }) {
+export default function BoardColumn({ title, cards = [], active }) {
   const [isModalOpen, setModalOpen] = React.useState(false)
 
   const toggleModal = () => setModalOpen(prev => !prev)
