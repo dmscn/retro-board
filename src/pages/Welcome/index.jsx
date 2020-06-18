@@ -7,7 +7,6 @@ import {
   signInUserWithGoogle,
   addNewBoard,
 } from '@services/firebase'
-
 import * as Styled from './styled'
 
 export default function Welcome() {
@@ -15,11 +14,7 @@ export default function Welcome() {
 
   const createNewBoard = async () => {
     if (!getCurrentUser()) await signInUserWithGoogle()
-    const { uid: userId } = getCurrentUser()
-    const { id } = await addNewBoard({
-      name: 'Untitled',
-      userId,
-    })
+    const id = await addNewBoard('Untitled')
     history.push(`/board/${id}`)
   }
 

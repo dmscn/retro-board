@@ -19,17 +19,31 @@ firebase.analytics()
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export const db = firebase.firestore()
 
-const getCollection = collection => db.collection(collection)
+const BOARDS_COLLECTION = 'boards'
+const USERS_COLLECTION = 'users'
+const COLUMNS_COLLECTION = 'columns'
+// const CARDS_COLLECTIONS = 'collections'
+
+/*
+ * Authentication methods
+ */
+const userCollection = db.collection(USERS_COLLECTION)
+export const signInUserWithGoogle = async () => {
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  const { user } = await firebase.auth().signInWithPopup(googleAuthProvider)
+  await userCollection.add(user)
+  return user
+}
+
+export const getCurrentUser = () => firebase.auth().currentUser
+export const getUserRef = () =>
+  db.doc(`${USERS_COLLECTION}/${getCurrentUser().uid}`)
 
 /*
  * Collections methods
  */
-
-export const addToCollection = (collection, register) =>
-  getCollection(collection).add(register)
-
 export const subscribeToCollection = (collection, callback) =>
-  getCollection(collection).onSnapshot(snapshot => {
+  collection.onSnapshot(snapshot => {
     const newRegisters = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
@@ -41,20 +55,33 @@ export const subscribeToCollection = (collection, callback) =>
 /*
  * Board methods
  */
-
-const BOARD_COLLECTION = 'board'
+const boardCollection = db.collection(BOARDS_COLLECTION)
+const defaultColumns = [
+  { title: 'Went bad' },
+  { title: 'Went well' },
+  { title: 'Action points' },
+]
 
 export const getBoardById = id =>
-  getCollection(BOARD_COLLECTION)
+  db
+    .collection(BOARDS_COLLECTION)
     .doc(id)
     .get()
 
-export const addNewBoard = board => addToCollection(BOARD_COLLECTION, board)
+export const addNewBoard = async name => {
+  const board = {
+    name,
+    owner: getUserRef(),
+  }
 
-/*
- * Authentication methods
- */
-export const signInUserWithGoogle = () =>
-  firebase.auth().signInWithPopup(googleAuthProvider)
+  const { id } = await boardCollection.add(board)
 
-export const getCurrentUser = () => firebase.auth().currentUser
+  const addColumn = column =>
+    boardCollection
+      .doc(id)
+      .collection(COLUMNS_COLLECTION)
+      .add(column)
+
+  defaultColumns.forEach(addColumn)
+  return id
+}
