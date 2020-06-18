@@ -5,7 +5,7 @@ import { ThemeProvider as YogaProvider } from '@gympass/yoga'
 import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
 import StoreProvider from '@store'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyled from './globalStyles'
 import theme from '@assets/style/theme'
 

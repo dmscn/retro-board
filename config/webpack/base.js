@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(rootPath, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/retro-board',
+    publicPath: '/retro-board/',
   },
   module: {
     rules: [
