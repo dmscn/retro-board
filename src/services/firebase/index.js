@@ -22,16 +22,18 @@ export const db = firebase.firestore()
 const BOARDS_COLLECTION = 'boards'
 const USERS_COLLECTION = 'users'
 const COLUMNS_COLLECTION = 'columns'
+
+const BoardsCollection = db.collection(BOARDS_COLLECTION)
+const UsersCollection = db.collection(USERS_COLLECTION)
 // const CARDS_COLLECTIONS = 'collections'
 
 /*
  * Authentication methods
  */
-const userCollection = db.collection(USERS_COLLECTION)
 export const signInUserWithGoogle = async () => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const { user } = await firebase.auth().signInWithPopup(googleAuthProvider)
-  await userCollection.add(user)
+  await UsersCollection.add(user)
   return user
 }
 
@@ -53,20 +55,25 @@ export const subscribeToCollection = (collection, callback) =>
   })
 
 /*
+ * Columns methods
+ */
+export const subscribeBoardColumns = (slug, callback) => {
+  const ColumnCollection = BoardsCollection.doc(slug).collection(
+    COLUMNS_COLLECTION
+  )
+  return subscribeToCollection(ColumnCollection, callback)
+}
+
+/*
  * Board methods
  */
-const boardCollection = db.collection(BOARDS_COLLECTION)
 const defaultColumns = [
   { title: 'Went bad' },
   { title: 'Went well' },
   { title: 'Action points' },
 ]
 
-export const getBoardById = id =>
-  db
-    .collection(BOARDS_COLLECTION)
-    .doc(id)
-    .get()
+export const getBoardById = id => BoardsCollection.doc(id).get()
 
 export const addNewBoard = async name => {
   const board = {
@@ -74,11 +81,10 @@ export const addNewBoard = async name => {
     owner: getUserRef(),
   }
 
-  const { id } = await boardCollection.add(board)
+  const { id } = await BoardsCollection.add(board)
 
   const addColumn = column =>
-    boardCollection
-      .doc(id)
+    BoardsCollection.doc(id)
       .collection(COLUMNS_COLLECTION)
       .add(column)
 

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { theme } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
 
-import { getBoardById } from '@services/firebase'
+import { subscribeBoardColumns } from '@services/firebase'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
@@ -54,13 +54,9 @@ export default function Board() {
 
   const [columns, setColumns] = React.useState([])
   const { slug } = useParams()
+
   React.useEffect(() => {
-    getBoardById(slug).then(doc => {
-      if (doc.exists) {
-        const { columns = [] } = doc.data()
-        setColumns(columns)
-      }
-    })
+    subscribeBoardColumns(slug, setColumns)
   }, [])
 
   return (
