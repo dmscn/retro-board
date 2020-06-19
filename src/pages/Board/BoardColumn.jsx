@@ -1,16 +1,19 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme, Text, Button } from '@gympass/yoga'
-import { PlusCircle } from 'react-feather'
+import { PlusCircle, Trash2 } from 'react-feather'
 import Card from './Card'
 import Scrollbar from '@components/Scrollbar'
 import AddCardModal from './AddCardModal'
+
+const ANIMATION_DURATION = 250
 
 const graySpacerStyle = css`
   box-sizing: border-box;
   padding: ${theme.spacing.small}px;
   background-color: ${theme.colors.gray[1]};
   margin-bottom: ${theme.spacing.small}px;
+  border-radius: ${theme.spacing.xxsmall}px;
 `
 
 const ColumnWrapper = styled.article`
@@ -21,15 +24,47 @@ const ColumnWrapper = styled.article`
   margin-right: ${theme.spacing.medium}px;
 `
 
-const Header = styled.article`
-  box-sizing: border-box;
+const Header = styled.header`
   ${graySpacerStyle}
+  box-sizing: border-box;
+  position: relative;
   border-bottom: ${({ active, theme }) =>
     active && `2px solid ${theme.colors.primary[1]}`};
+  cursor: pointer;
+
+  transition-property: border-color, opacity, background-color;
+  transition-duration: ${ANIMATION_DURATION}ms;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    border-color: ${theme.colors.negative[1]};
+    background-color: ${theme.colors.negative[0]};
+  }
+
+  .delete-icon {
+    opacity: 0;
+    transition: opacity ${ANIMATION_DURATION}ms ease-in-out;
+  }
+
+  &:hover .delete-icon {
+    opacity: 1;
+  }
 `
 
 const HeaderText = styled(Text.H4)`
   text-align: center;
+`
+
+const TrashIconWrapper = styled.span`
+  position: absolute;
+  right: ${theme.spacing.medium}px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: ${theme.colors.negative[1]};
 `
 
 const Content = styled.main`
@@ -48,8 +83,11 @@ export default function BoardColumn({ title, cards = [], active }) {
 
   return (
     <ColumnWrapper>
-      <Header as="header" active={active}>
+      <Header active={active}>
         <HeaderText>{title}</HeaderText>
+        <TrashIconWrapper className="delete-icon">
+          <Trash2 width={20} />
+        </TrashIconWrapper>
       </Header>
 
       <Scrollbar vertical>
