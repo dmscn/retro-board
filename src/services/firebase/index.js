@@ -58,9 +58,9 @@ export const subscribeToCollection = (collection, callback) =>
  * Columns methods
  */
 export const subscribeBoardColumns = (boardSlug, callback) => {
-  const ColumnCollection = BoardsCollection.doc(boardSlug).collection(
-    COLUMNS_COLLECTION
-  )
+  const ColumnCollection = BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .orderBy('createdAt')
 
   return subscribeToCollection(ColumnCollection, callback)
 }
@@ -68,7 +68,10 @@ export const subscribeBoardColumns = (boardSlug, callback) => {
 export const addNewColumnToBoard = (boardSlug, column) =>
   BoardsCollection.doc(boardSlug)
     .collection(COLUMNS_COLLECTION)
-    .add(column)
+    .add({
+      ...column,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    })
 
 export const removeColumnFromBoard = (boardSlug, columnSlug) =>
   BoardsCollection.doc(boardSlug)
@@ -91,14 +94,12 @@ export const addNewBoard = async name => {
   const board = {
     name,
     owner: getUserRef(),
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
   }
 
   const { id } = await BoardsCollection.add(board)
 
-  const addColumn = column =>
-    BoardsCollection.doc(id)
-      .collection(COLUMNS_COLLECTION)
-      .add(column)
+  const addColumn = column => addNewColumnToBoard(id, column)
 
   defaultColumns.forEach(addColumn)
   return id
