@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { theme } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
 
-import { subscribeBoardColumns } from '@services/firebase'
+import { subscribeBoardColumns, addNewColumnToBoard } from '@services/firebase'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
@@ -37,12 +37,12 @@ const AddNewColumn = styled.div`
   }
 `
 
-const ColumnsList = ({ columns, onAddNewColumn }) => (
+const ColumnsList = ({ columns, onAddButtonClick }) => (
   <ListWrapper>
     {columns.map(({ id, title, cards }, index) => (
       <BoardColumn key={id} title={title} cards={cards} active={index === 0} />
     ))}
-    <AddNewColumn onClick={onAddNewColumn}>
+    <AddNewColumn onClick={onAddButtonClick}>
       <PlusCircle width={80} height={80} />
     </AddNewColumn>
   </ListWrapper>
@@ -59,12 +59,19 @@ export default function Board() {
     subscribeBoardColumns(slug, setColumns)
   }, [])
 
+  const addNewColumn = title => {
+    addNewColumnToBoard(slug, { title })
+    toggleModal()
+  }
+
   return (
     <Page>
       <ScrollbarWithPadding horizontal>
-        <ColumnsList columns={columns} onAddNewColumn={toggleModal} />
+        <ColumnsList columns={columns} onAddButtonClick={toggleModal} />
       </ScrollbarWithPadding>
-      {isModalOpen && <AddColumnModal onCancel={toggleModal} />}
+      {isModalOpen && (
+        <AddColumnModal onCancel={toggleModal} onSubmit={addNewColumn} />
+      )}
     </Page>
   )
 }

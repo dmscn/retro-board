@@ -13,12 +13,14 @@ const ButtonsRow = styled.div`
   justify-content: space-between;
 `
 
-export default function AddColumnModal({ onCancel }) {
+export default function AddColumnModal({ onCancel, onSubmit }) {
   const inputRef = React.useRef()
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
+
+  const handleOnSubmit = () => onSubmit(inputRef.current.value)
 
   return (
     <Modal onClose={onCancel}>
@@ -28,7 +30,7 @@ export default function AddColumnModal({ onCancel }) {
       </Content>
       <ButtonsRow>
         <Button.Text onClick={onCancel}>Cancelar</Button.Text>
-        <Button>Criar</Button>
+        <Button onClick={handleOnSubmit}>Criar</Button>
       </ButtonsRow>
     </Modal>
   )

@@ -64,6 +64,11 @@ export const subscribeBoardColumns = (slug, callback) => {
   return subscribeToCollection(ColumnCollection, callback)
 }
 
+export const addNewColumnToBoard = (slug, column) =>
+  BoardsCollection.doc(slug)
+    .collection(COLUMNS_COLLECTION)
+    .add(column)
+
 /*
  * Board methods
  */
