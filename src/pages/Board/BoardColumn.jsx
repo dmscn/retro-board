@@ -76,14 +76,14 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({ title, cards = [], active }) {
+export default function BoardColumn({ title, cards = [], active, onRemove }) {
   const [isModalOpen, setModalOpen] = React.useState(false)
 
   const toggleModal = () => setModalOpen(prev => !prev)
 
   return (
     <ColumnWrapper>
-      <Header active={active}>
+      <Header active={active} onClick={onRemove}>
         <HeaderText>{title}</HeaderText>
         <TrashIconWrapper className="delete-icon">
           <Trash2 width={20} />

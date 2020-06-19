@@ -4,7 +4,11 @@ import styled from 'styled-components'
 import { theme } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
 
-import { subscribeBoardColumns, addNewColumnToBoard } from '@services/firebase'
+import {
+  subscribeBoardColumns,
+  addNewColumnToBoard,
+  removeColumnFromBoard,
+} from '@services/firebase'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
@@ -37,10 +41,16 @@ const AddNewColumn = styled.div`
   }
 `
 
-const ColumnsList = ({ columns, onAddButtonClick }) => (
+const ColumnsList = ({ columns, onAddButtonClick, onColumnRemove }) => (
   <ListWrapper>
     {columns.map(({ id, title, cards }, index) => (
-      <BoardColumn key={id} title={title} cards={cards} active={index === 0} />
+      <BoardColumn
+        key={id}
+        title={title}
+        cards={cards}
+        active={index === 0}
+        onRemove={() => onColumnRemove(id)}
+      />
     ))}
     <AddNewColumn onClick={onAddButtonClick}>
       <PlusCircle width={80} height={80} />
@@ -64,10 +74,16 @@ export default function Board() {
     toggleModal()
   }
 
+  const handleColumnRemove = columnId => removeColumnFromBoard(slug, columnId)
+
   return (
     <Page>
       <ScrollbarWithPadding horizontal>
-        <ColumnsList columns={columns} onAddButtonClick={toggleModal} />
+        <ColumnsList
+          columns={columns}
+          onAddButtonClick={toggleModal}
+          onColumnRemove={handleColumnRemove}
+        />
       </ScrollbarWithPadding>
       {isModalOpen && (
         <AddColumnModal onCancel={toggleModal} onSubmit={addNewColumn} />

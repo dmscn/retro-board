@@ -57,17 +57,24 @@ export const subscribeToCollection = (collection, callback) =>
 /*
  * Columns methods
  */
-export const subscribeBoardColumns = (slug, callback) => {
-  const ColumnCollection = BoardsCollection.doc(slug).collection(
+export const subscribeBoardColumns = (boardSlug, callback) => {
+  const ColumnCollection = BoardsCollection.doc(boardSlug).collection(
     COLUMNS_COLLECTION
   )
+
   return subscribeToCollection(ColumnCollection, callback)
 }
 
-export const addNewColumnToBoard = (slug, column) =>
-  BoardsCollection.doc(slug)
+export const addNewColumnToBoard = (boardSlug, column) =>
+  BoardsCollection.doc(boardSlug)
     .collection(COLUMNS_COLLECTION)
     .add(column)
+
+export const removeColumnFromBoard = (boardSlug, columnSlug) =>
+  BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .doc(columnSlug)
+    .delete()
 
 /*
  * Board methods
