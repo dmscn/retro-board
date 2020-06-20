@@ -10,7 +10,6 @@
       "@utils": ["src/utils"],
       "@helpers": ["src/helpers"],
       "@hooks": ["src/hooks"],
-      "@store": ["src/store"],
       "@services": ["src/services"],
       "@assets": ["src/assets"],
     }

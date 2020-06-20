@@ -4,7 +4,6 @@ import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as YogaProvider } from '@gympass/yoga'
 import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
-import StoreProvider from '@store'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyled from './globalStyles'
 import theme from '@assets/style/theme'
@@ -14,16 +13,14 @@ const App = () => (
     <GlobalStyled />
     <YogaProvider theme="Wellness">
       <ThemeProvider theme={theme}>
-        <StoreProvider>
-          <Switch>
-            <Route path="/board/:slug">
-              <Board />
-            </Route>
-            <Route path="/">
-              <Welcome />
-            </Route>
-          </Switch>
-        </StoreProvider>
+        <Switch>
+          <Route path="/board/:slug">
+            <Board />
+          </Route>
+          <Route path="/">
+            <Welcome />
+          </Route>
+        </Switch>
       </ThemeProvider>
     </YogaProvider>
   </Router>

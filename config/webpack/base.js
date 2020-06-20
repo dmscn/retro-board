@@ -44,7 +44,6 @@ module.exports = {
       '@utils': path.join(srcPath, 'utils'),
       '@helpers': path.join(srcPath, 'helpers'),
       '@hooks': path.join(srcPath, 'hooks'),
-      '@store': path.join(srcPath, 'store'),
       '@services': path.join(srcPath, 'services'),
       '@assets': path.join(srcPath, 'assets'),
     },
