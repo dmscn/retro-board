@@ -76,10 +76,21 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({ title, cards = [], active, onRemove }) {
+export default function BoardColumn({
+  title,
+  active,
+  onRemove,
+  subscribeCards,
+  onAddNewCard,
+}) {
   const [isModalOpen, setModalOpen] = React.useState(false)
-
   const toggleModal = () => setModalOpen(prev => !prev)
+
+  const [cards, setCards] = React.useState([])
+
+  React.useEffect(() => {
+    subscribeCards(setCards)
+  }, [])
 
   return (
     <ColumnWrapper>
@@ -100,7 +111,9 @@ export default function BoardColumn({ title, cards = [], active, onRemove }) {
           </Button.Text>
         </Content>
       </Scrollbar>
-      {isModalOpen && <AddCardModal onCancel={toggleModal} />}
+      {isModalOpen && (
+        <AddCardModal onCancel={toggleModal} onSubmit={onAddNewCard} />
+      )}
     </ColumnWrapper>
   )
 }

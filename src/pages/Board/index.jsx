@@ -6,8 +6,10 @@ import { PlusCircle } from 'react-feather'
 
 import {
   subscribeBoardColumns,
+  subscribeColumnCards,
   addNewColumnToBoard,
   removeColumnFromBoard,
+  addNewCardToBoardColumn,
 } from '@services/firebase'
 
 import Page from '@components/Page'
@@ -41,7 +43,12 @@ const AddNewColumn = styled.div`
   }
 `
 
-const ColumnsList = ({ columns, onAddButtonClick, onColumnRemove }) => (
+const ColumnsList = ({
+  boardSlug,
+  columns,
+  onAddButtonClick,
+  onColumnRemove,
+}) => (
   <ListWrapper>
     {columns.map(({ id, title, cards }, index) => (
       <BoardColumn
@@ -50,6 +57,10 @@ const ColumnsList = ({ columns, onAddButtonClick, onColumnRemove }) => (
         cards={cards}
         active={index === 0}
         onRemove={() => onColumnRemove(id)}
+        subscribeCards={callback =>
+          subscribeColumnCards(boardSlug, id, callback)
+        }
+        onAddNewCard={card => addNewCardToBoardColumn(boardSlug, id, card)}
       />
     ))}
     <AddNewColumn onClick={onAddButtonClick}>
@@ -80,6 +91,7 @@ export default function Board() {
     <Page>
       <ScrollbarWithPadding horizontal>
         <ColumnsList
+          boardSlug={slug}
           columns={columns}
           onAddButtonClick={toggleModal}
           onColumnRemove={handleColumnRemove}

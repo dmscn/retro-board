@@ -18,12 +18,19 @@ const ButtonsRow = styled.div`
   justify-content: space-between;
 `
 
-export default function AddCardModal({ onCancel }) {
+export default function AddCardModal({ onCancel, onSubmit }) {
+  const [title, setTitle] = React.useState('')
+  const [description, setDescription] = React.useState('')
   const inputRef = React.useRef()
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
+
+  const handleSubmit = () => {
+    onSubmit({ title, description })
+    onCancel()
+  }
 
   return (
     <Modal onClose={onCancel}>
@@ -31,14 +38,26 @@ export default function AddCardModal({ onCancel }) {
         <Text.H2 variant="primary">Criar novo cartão</Text.H2>
       </Field>
       <Field>
-        <Input ref={inputRef} label="Título do cartão" full />
+        <Input
+          ref={inputRef}
+          label="Título do cartão"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          cleanable={false}
+          full
+        />
       </Field>
       <Field>
-        <CustomTextArea placeholder="Descrição" full />
+        <CustomTextArea
+          placeholder="Descrição"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+          full
+        />
       </Field>
       <ButtonsRow>
         <Button.Text onClick={onCancel}>Cancelar</Button.Text>
-        <Button>Criar</Button>
+        <Button onClick={handleSubmit}>Criar</Button>
       </ButtonsRow>
     </Modal>
   )

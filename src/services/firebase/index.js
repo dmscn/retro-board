@@ -22,10 +22,10 @@ export const db = firebase.firestore()
 const BOARDS_COLLECTION = 'boards'
 const USERS_COLLECTION = 'users'
 const COLUMNS_COLLECTION = 'columns'
+const CARDS_COLLECTION = 'cards'
 
 const BoardsCollection = db.collection(BOARDS_COLLECTION)
 const UsersCollection = db.collection(USERS_COLLECTION)
-// const CARDS_COLLECTIONS = 'collections'
 
 /*
  * Authentication methods
@@ -53,6 +53,31 @@ export const subscribeToCollection = (collection, callback) =>
 
     callback(newRegisters)
   })
+
+/*
+ * Cards methods
+ */
+export const subscribeColumnCards = (boardSlug, columnSlug, callback) => {
+  const CardsCollection = BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .doc(columnSlug)
+    .collection(CARDS_COLLECTION)
+    .orderBy('createdAt')
+
+  return subscribeToCollection(CardsCollection, callback)
+}
+
+export const addNewCardToBoardColumn = (boardSlug, columnSlug, card) =>
+  BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .doc(columnSlug)
+    .collection(CARDS_COLLECTION)
+    .add({
+      ...card,
+      likes: 0,
+      labels: [],
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    })
 
 /*
  * Columns methods
