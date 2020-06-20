@@ -12,6 +12,7 @@
       "@hooks": ["src/hooks"],
       "@services": ["src/services"],
       "@assets": ["src/assets"],
+      "@contexts": ["src/contexts"],
     }
   },
   "exclude": ["node_modules", "dist"]

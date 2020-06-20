@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme } from '@gympass/yoga'
 import { PlusCircle } from 'react-feather'
+import { BoardProvider } from '@contexts/board'
+import { ColumnProvider } from '@contexts/column'
 
 import {
   subscribeBoardColumns,
@@ -51,16 +53,17 @@ const ColumnsList = ({
 }) => (
   <ListWrapper>
     {columns.map(({ id, title }, index) => (
-      <BoardColumn
-        key={id}
-        title={title}
-        active={index === 0}
-        onRemove={() => onColumnRemove(id)}
-        subscribeCards={callback =>
-          subscribeColumnCards(boardSlug, id, callback)
-        }
-        onAddNewCard={card => addNewCardToBoardColumn(boardSlug, id, card)}
-      />
+      <ColumnProvider key={id} value={{ columnSlug: id }}>
+        <BoardColumn
+          title={title}
+          active={index === 0}
+          onRemove={() => onColumnRemove(id)}
+          subscribeCards={callback =>
+            subscribeColumnCards(boardSlug, id, callback)
+          }
+          onAddNewCard={card => addNewCardToBoardColumn(boardSlug, id, card)}
+        />
+      </ColumnProvider>
     ))}
     <AddNewColumn onClick={onAddNewColumn}>
       <PlusCircle width={80} height={80} />
@@ -88,17 +91,19 @@ export default function Board() {
 
   return (
     <Page>
-      <ScrollbarWithPadding horizontal>
-        <ColumnsList
-          boardSlug={slug}
-          columns={columns}
-          onAddNewColumn={toggleModal}
-          onColumnRemove={handleColumnRemove}
-        />
-      </ScrollbarWithPadding>
-      {isModalOpen && (
-        <AddColumnModal onCancel={toggleModal} onSubmit={addNewColumn} />
-      )}
+      <BoardProvider value={{ boardSlug: slug }}>
+        <ScrollbarWithPadding horizontal>
+          <ColumnsList
+            boardSlug={slug}
+            columns={columns}
+            onAddNewColumn={toggleModal}
+            onColumnRemove={handleColumnRemove}
+          />
+        </ScrollbarWithPadding>
+        {isModalOpen && (
+          <AddColumnModal onCancel={toggleModal} onSubmit={addNewColumn} />
+        )}
+      </BoardProvider>
     </Page>
   )
 }

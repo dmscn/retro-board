@@ -5,6 +5,7 @@ import { PlusCircle, Trash2 } from 'react-feather'
 import Card from './Card'
 import Scrollbar from '@components/Scrollbar'
 import AddCardModal from './AddCardModal'
+import { CardProvider } from '@contexts/card'
 
 const ANIMATION_DURATION = 250
 
@@ -104,7 +105,9 @@ export default function BoardColumn({
       <Scrollbar vertical>
         <Content>
           {cards.map(card => (
-            <Card key={card.id} card={card} />
+            <CardProvider key={card.id} value={{ cardSlug: card.id }}>
+              <Card card={card} />
+            </CardProvider>
           ))}
           <Button.Text inverted onClick={toggleModal}>
             <PlusCircle />

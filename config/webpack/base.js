@@ -46,6 +46,7 @@ module.exports = {
       '@hooks': path.join(srcPath, 'hooks'),
       '@services': path.join(srcPath, 'services'),
       '@assets': path.join(srcPath, 'assets'),
+      '@contexts': path.join(srcPath, 'contexts'),
     },
     extensions: ['.js', '.jsx'],
   },
