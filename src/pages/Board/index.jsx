@@ -46,15 +46,14 @@ const AddNewColumn = styled.div`
 const ColumnsList = ({
   boardSlug,
   columns,
-  onAddButtonClick,
+  onAddNewColumn,
   onColumnRemove,
 }) => (
   <ListWrapper>
-    {columns.map(({ id, title, cards }, index) => (
+    {columns.map(({ id, title }, index) => (
       <BoardColumn
         key={id}
         title={title}
-        cards={cards}
         active={index === 0}
         onRemove={() => onColumnRemove(id)}
         subscribeCards={callback =>
@@ -63,7 +62,7 @@ const ColumnsList = ({
         onAddNewCard={card => addNewCardToBoardColumn(boardSlug, id, card)}
       />
     ))}
-    <AddNewColumn onClick={onAddButtonClick}>
+    <AddNewColumn onClick={onAddNewColumn}>
       <PlusCircle width={80} height={80} />
     </AddNewColumn>
   </ListWrapper>
@@ -93,7 +92,7 @@ export default function Board() {
         <ColumnsList
           boardSlug={slug}
           columns={columns}
-          onAddButtonClick={toggleModal}
+          onAddNewColumn={toggleModal}
           onColumnRemove={handleColumnRemove}
         />
       </ScrollbarWithPadding>

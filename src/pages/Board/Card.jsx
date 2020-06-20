@@ -76,10 +76,10 @@ const CommentInput = styled(Input)`
   margin-top: ${theme.spacing.small}px;
 `
 
-export default function Card() {
-  const labels = ['label 1', 'label 2', 'label 3', 'label 4']
-  const [isModalOpen, setModalOpen] = React.useState(false)
+export default function Card({ card }) {
+  const { title, labels = [], description, likes = 0, comments = [] } = card
 
+  const [isModalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(prev => !prev)
 
   return (
@@ -95,23 +95,17 @@ export default function Card() {
         </AddButton>
       </LabelRow>
 
-      <Title>Card title</Title>
-      <Description>
-        Nulla sit officia id sit dolor exercitation ut reprehenderit occaecat
-        proident minim sit incididunt laborum. Enim aliquip velit ut sunt enim
-        enim. Nulla deserunt anim dolor labore enim ad ut dolor. Occaecat Lorem
-        officia sunt officia exercitation labore ex sint dolor aliquip dolor
-        nisi.
-      </Description>
+      <Title>{title}</Title>
+      <Description>{description}</Description>
 
       <ActionRow>
         <IconWrapper>
           <ThumbsUp />
-          <CounterText>200</CounterText>
+          <CounterText>{likes}</CounterText>
         </IconWrapper>
         <IconWrapper>
           <MessageCircle />
-          <CounterText>10</CounterText>
+          <CounterText>{comments.length}</CounterText>
         </IconWrapper>
       </ActionRow>
 
