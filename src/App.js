@@ -9,7 +9,7 @@ import GlobalStyled from './globalStyles'
 import theme from '@assets/style/theme'
 
 const App = () => (
-  <Router basename="/retro-board">
+  <Router>
     <GlobalStyled />
     <YogaProvider theme="Wellness">
       <ThemeProvider theme={theme}>
