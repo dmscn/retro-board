@@ -13,22 +13,27 @@ const ButtonsRow = styled.div`
   justify-content: space-between;
 `
 
-export default function AddLabelModal({ onCancel }) {
+export default function AddLabelModal({ onClose, onSubmit }) {
   const inputRef = React.useRef()
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
 
+  const handleSubmit = () => {
+    onSubmit(inputRef.current.value)
+    onClose()
+  }
+
   return (
-    <Modal onClose={onCancel}>
+    <Modal onClose={onClose}>
       <Text.H2 variant="primary">Criar categoria</Text.H2>
       <Content>
         <Input ref={inputRef} label="Nome da categoria" full />
       </Content>
       <ButtonsRow>
-        <Button.Text onClick={onCancel}>Cancelar</Button.Text>
-        <Button>Criar</Button>
+        <Button.Text onClick={onClose}>Cancelar</Button.Text>
+        <Button onClick={handleSubmit}>Criar</Button>
       </ButtonsRow>
     </Modal>
   )

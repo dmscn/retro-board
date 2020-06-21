@@ -38,8 +38,7 @@ export const signInUserWithGoogle = async () => {
 }
 
 export const getCurrentUser = () => firebase.auth().currentUser
-export const getUserRef = () =>
-  db.doc(`${USERS_COLLECTION}/${getCurrentUser().uid}`)
+export const getUserRef = () => UsersCollection.doc(getCurrentUser().uid)
 
 /*
  * Collections methods
@@ -74,7 +73,7 @@ export const addNewCardToBoardColumn = (boardSlug, columnSlug, card) =>
     .collection(CARDS_COLLECTION)
     .add({
       ...card,
-      likes: 0,
+      likedBy: [],
       labels: [],
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
@@ -87,6 +86,33 @@ export const removeCardFromBoardColumn = (boardSlug, columnSlug, cardSlug) =>
     .doc(cardSlug)
     .delete()
 
+export const updateCardFromBoardColumn = (
+  boardSlug,
+  columnSlug,
+  cardSlug,
+  newData
+) =>
+  BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .doc(columnSlug)
+    .collection(CARDS_COLLECTION)
+    .doc(cardSlug)
+    .update(newData)
+
+export const addNewCardLabel = (boardSlug, columnSlug, cardSlug, label) =>
+  updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
+    labels: firebase.firestore.FieldValue.arrayUnion(label),
+  })
+
+export const likeCard = (boardSlug, columnSlug, cardSlug) =>
+  updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
+    likedBy: firebase.firestore.FieldValue.arrayUnion(getCurrentUser().uid),
+  })
+
+export const unlikeCard = (boardSlug, columnSlug, cardSlug) =>
+  updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
+    likedBy: firebase.firestore.FieldValue.arrayRemove(getCurrentUser().uid),
+  })
 /*
  * Columns methods
  */

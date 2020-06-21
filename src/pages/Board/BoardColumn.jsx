@@ -98,8 +98,8 @@ export default function BoardColumn({ active }) {
       <Scrollbar vertical>
         <Content>
           {cards.map(card => (
-            <CardProvider key={card.id} value={{ cardSlug: card.id }}>
-              <Card card={card} />
+            <CardProvider key={card.id} card={card}>
+              <Card />
             </CardProvider>
           ))}
           <Button.Text inverted onClick={toggleModal}>

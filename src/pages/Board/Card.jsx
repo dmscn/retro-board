@@ -4,6 +4,7 @@ import { theme, Text, Tag, Input } from '@gympass/yoga'
 import { MessageCircle, ThumbsUp, PlusCircle } from 'react-feather'
 
 import AddLabelModal from './AddLabelModal'
+import { useCard } from '@contexts/card'
 
 const CardWrapper = styled.article`
   display: flex;
@@ -76,8 +77,9 @@ const CommentInput = styled(Input)`
   margin-top: ${theme.spacing.small}px;
 `
 
-export default function Card({ card }) {
-  const { title, labels = [], description, likes = 0, comments = [] } = card
+export default function Card() {
+  const { card, like, addLabel } = useCard()
+  const { title, labels = [], description, likedBy = [], comments = [] } = card
 
   const [isModalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(prev => !prev)
@@ -99,9 +101,9 @@ export default function Card({ card }) {
       <Description>{description}</Description>
 
       <ActionRow>
-        <IconWrapper>
+        <IconWrapper onClick={like}>
           <ThumbsUp />
-          <CounterText>{likes}</CounterText>
+          <CounterText>{likedBy.length}</CounterText>
         </IconWrapper>
         <IconWrapper>
           <MessageCircle />
@@ -110,7 +112,9 @@ export default function Card({ card }) {
       </ActionRow>
 
       <CommentInput full label="Add a comment..." />
-      {isModalOpen && <AddLabelModal onCancel={toggleModal} />}
+      {isModalOpen && (
+        <AddLabelModal onCancel={toggleModal} onSubmit={addLabel} />
+      )}
     </CardWrapper>
   )
 }
