@@ -27,6 +27,8 @@ const ActionRow = styled.footer`
 `
 
 const CounterText = styled(Text.Small)`
+  ${({ liked, ...props }) =>
+    liked && `color: ${theme.colors.primary(props)[2]};`}
   margin-left: ${theme.spacing.xsmall}px;
 `
 
@@ -40,6 +42,8 @@ const IconWrapper = styled.div`
   align-items: flex-end;
   padding: ${theme.spacing.xxsmall}px;
   cursor: pointer;
+  ${({ liked, ...props }) =>
+    liked && `color: ${theme.colors.primary(props)[2]};`}
 
   &:not(:last-child) {
     margin-right: ${theme.spacing.small}px;
@@ -78,7 +82,7 @@ const CommentInput = styled(Input)`
 `
 
 export default function Card() {
-  const { card, like, addLabel } = useCard()
+  const { card, like, liked, addLabel } = useCard()
   const { title, labels = [], description, likedBy = [], comments = [] } = card
 
   const [isModalOpen, setModalOpen] = React.useState(false)
@@ -101,9 +105,9 @@ export default function Card() {
       <Description>{description}</Description>
 
       <ActionRow>
-        <IconWrapper onClick={like}>
+        <IconWrapper onClick={like} liked={liked}>
           <ThumbsUp />
-          <CounterText>{likedBy.length}</CounterText>
+          <CounterText liked={liked}>{likedBy.length}</CounterText>
         </IconWrapper>
         <IconWrapper>
           <MessageCircle />
@@ -113,7 +117,7 @@ export default function Card() {
 
       <CommentInput full label="Add a comment..." />
       {isModalOpen && (
-        <AddLabelModal onCancel={toggleModal} onSubmit={addLabel} />
+        <AddLabelModal onClose={toggleModal} onSubmit={addLabel} />
       )}
     </CardWrapper>
   )
