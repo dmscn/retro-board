@@ -1,13 +1,15 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme, Text, Button } from '@gympass/yoga'
-import { PlusCircle, Trash2 } from 'react-feather'
+import { PlusCircle } from 'react-feather'
 import Card from './Card'
-import Scrollbar from '@components/Scrollbar'
 import AddCardModal from './AddCardModal'
 import { CardProvider } from '@contexts/card'
 import { useColumn } from '@contexts/column'
 import { useBoard } from '@contexts/board'
+
+import Scrollbar from '@components/Scrollbar'
+import RemoveIcon from '@components/RemoveIcon'
 
 const ANIMATION_DURATION = 250
 
@@ -31,18 +33,7 @@ const Header = styled.header`
   ${graySpacerStyle}
   box-sizing: border-box;
   position: relative;
-  border-bottom: ${({ active, theme }) =>
-    active && `2px solid ${theme.colors.primary[1]}`};
-  cursor: pointer;
-
-  transition-property: border-color, opacity, background-color;
-  transition-duration: ${ANIMATION_DURATION}ms;
-  transition-timing-function: ease-in-out;
-
-  &:hover {
-    border-color: ${theme.colors.negative[1]};
-    background-color: ${theme.colors.negative[0]};
-  }
+  border-bottom: 2px solid ${theme.colors.primary[1]};
 
   .delete-icon {
     opacity: 0;
@@ -58,7 +49,7 @@ const HeaderText = styled(Text.H4)`
   text-align: center;
 `
 
-const TrashIconWrapper = styled.span`
+const IconWrapper = styled.span`
   position: absolute;
   right: ${theme.spacing.medium}px;
   top: 0;
@@ -67,7 +58,6 @@ const TrashIconWrapper = styled.span`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  color: ${theme.colors.negative[1]};
 `
 
 const Content = styled.main`
@@ -90,9 +80,9 @@ export default function BoardColumn({ active }) {
     <ColumnWrapper>
       <Header active={active} onClick={() => removeColumn(slug)}>
         <HeaderText>{column.title}</HeaderText>
-        <TrashIconWrapper className="delete-icon">
-          <Trash2 width={20} />
-        </TrashIconWrapper>
+        <IconWrapper className="delete-icon">
+          <RemoveIcon height={18} width={18} />
+        </IconWrapper>
       </Header>
 
       <Scrollbar vertical>
