@@ -6,6 +6,8 @@ import Card from './Card'
 import Scrollbar from '@components/Scrollbar'
 import AddCardModal from './AddCardModal'
 import { CardProvider } from '@contexts/card'
+import { useColumn } from '@contexts/column'
+import { useBoard } from '@contexts/board'
 
 const ANIMATION_DURATION = 250
 
@@ -77,26 +79,17 @@ const Content = styled.main`
   min-height: 100%;
 `
 
-export default function BoardColumn({
-  title,
-  active,
-  onRemove,
-  subscribeCards,
-  onAddNewCard,
-}) {
+export default function BoardColumn({ active }) {
+  const { removeColumn } = useBoard()
+  const { column, slug, cards, addCard } = useColumn()
+
   const [isModalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(prev => !prev)
 
-  const [cards, setCards] = React.useState([])
-
-  React.useEffect(() => {
-    subscribeCards(setCards)
-  }, [])
-
   return (
     <ColumnWrapper>
-      <Header active={active} onClick={onRemove}>
-        <HeaderText>{title}</HeaderText>
+      <Header active={active} onClick={() => removeColumn(slug)}>
+        <HeaderText>{column.title}</HeaderText>
         <TrashIconWrapper className="delete-icon">
           <Trash2 width={20} />
         </TrashIconWrapper>
@@ -115,7 +108,7 @@ export default function BoardColumn({
         </Content>
       </Scrollbar>
       {isModalOpen && (
-        <AddCardModal onCancel={toggleModal} onSubmit={onAddNewCard} />
+        <AddCardModal onCancel={toggleModal} onSubmit={addCard} />
       )}
     </ColumnWrapper>
   )

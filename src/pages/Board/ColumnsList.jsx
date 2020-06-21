@@ -5,11 +5,6 @@ import { PlusCircle } from 'react-feather'
 import { ColumnProvider } from '@contexts/column'
 import { useBoard } from '@contexts/board'
 
-import {
-  subscribeColumnCards,
-  addNewCardToBoardColumn,
-} from '@services/firebase'
-
 import BoardColumn from './BoardColumn'
 import AddColumnModal from './AddColumnModal'
 
@@ -36,24 +31,16 @@ const AddNewColumn = styled.div`
 `
 
 export default function ColumnsList() {
-  const { slug, columns, removeColumn } = useBoard()
+  const { columns } = useBoard()
 
   const [isModalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(prev => !prev)
 
   return (
     <ListWrapper>
-      {columns.map(({ id, title }, index) => (
-        <ColumnProvider key={id} value={{ slug: id }}>
-          <BoardColumn
-            title={title}
-            active={index === 0}
-            onRemove={() => removeColumn(id)}
-            subscribeCards={callback =>
-              subscribeColumnCards(slug, id, callback)
-            }
-            onAddNewCard={card => addNewCardToBoardColumn(slug, id, card)}
-          />
+      {columns.map((column, index) => (
+        <ColumnProvider key={column.id} column={column}>
+          <BoardColumn active={index === 0} />
         </ColumnProvider>
       ))}
       <AddNewColumn onClick={toggleModal}>

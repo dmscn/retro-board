@@ -79,6 +79,14 @@ export const addNewCardToBoardColumn = (boardSlug, columnSlug, card) =>
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
 
+export const removeCardFromBoardColumn = (boardSlug, columnSlug, cardSlug) =>
+  BoardsCollection.doc(boardSlug)
+    .collection(COLUMNS_COLLECTION)
+    .doc(columnSlug)
+    .collection(CARDS_COLLECTION)
+    .doc(cardSlug)
+    .delete()
+
 /*
  * Columns methods
  */
