@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
     node: true,
   },
+  parser: 'babel-eslint',
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -11,17 +12,9 @@ module.exports = {
     'prettier',
     'prettier/react',
   ],
-  plugins: ['react', 'prettier'],
-  parser: 'babel-eslint',
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-  },
-  settings: {
-    react: {
-      pragma: 'React',
-      version: 'detect',
-    },
   },
   parserOptions: {
     ecmaFeatures: {
@@ -30,6 +23,13 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
+  },
+  plugins: ['react', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
     'react/prop-types': 'off',

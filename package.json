@@ -9,7 +9,7 @@
     "build": "webpack --config config/webpack/prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "pretty-quick --pattern '**/*.*(js|jsx)' --verbose",
-    "lint": "eslint .",
+    "lint": "eslint \"**/*.{js,jsx}\" --quiet",
     "lint:fix": "npm run lint -- --fix ",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -20,9 +20,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.+(js|jsx)": [
-      "npm run lint:fix",
-      "npm run format"
+    "*.{js,jsx}": [
+      "eslint --quiet --fix",
+      "pretty-quick --verbose",
+      "git add"
     ]
   },
   "repository": {
