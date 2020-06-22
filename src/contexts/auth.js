@@ -1,5 +1,5 @@
 import React from 'react'
-import { subscribeAuthState } from '@services/firebase'
+import { subscribeAuthState, signInUserWithGoogle } from '@services/firebase'
 
 const AuthContext = React.createContext()
 
@@ -18,6 +18,7 @@ export function AuthProvider({ children }) {
   const contextValues = {
     user,
     initialized,
+    googleSignIn: signInUserWithGoogle,
   }
 
   return (

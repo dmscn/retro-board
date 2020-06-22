@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Row } from '@gympass/yoga'
+import { Row, theme } from '@gympass/yoga'
 
 export const ViewportLane = styled.main`
   width: 100%;
@@ -24,4 +24,10 @@ export const CenteredRow = styled(Row)`
 `
 export const IllustrationWrapper = styled(CenteredRow)`
   margin: 48px 0;
+`
+
+export const ButtonsRow = styled(CenteredRow)`
+  .with-margin {
+    margin-right: ${theme.spacing.medium}px;
+  }
 `
