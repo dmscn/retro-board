@@ -22,8 +22,7 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "eslint --quiet --fix",
-      "pretty-quick --verbose",
-      "git add"
+      "pretty-quick --verbose"
     ]
   },
   "repository": {

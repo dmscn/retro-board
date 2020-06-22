@@ -1,6 +1,8 @@
 import firebase from 'firebase'
 import 'firebase/firestore'
 
+window.firebase = firebase
+
 const config = {
   apiKey: 'AIzaSyC4Fif-DpXabYJat_nMHfFY6j-Kokzqao8',
   authDomain: 'retro-board-dev.firebaseapp.com',
@@ -16,8 +18,8 @@ const config = {
 firebase.initializeApp(config)
 firebase.analytics()
 
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-export const db = firebase.firestore()
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+const db = firebase.firestore()
 
 const BOARDS_COLLECTION = 'boards'
 const USERS_COLLECTION = 'users'
@@ -30,6 +32,9 @@ const UsersCollection = db.collection(USERS_COLLECTION)
 /*
  * Authentication methods
  */
+export const subscribeAuthState = handler =>
+  firebase.auth().onAuthStateChanged(handler)
+
 export const signInUserWithGoogle = async () => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const { user } = await firebase.auth().signInWithPopup(googleAuthProvider)
