@@ -1,8 +1,6 @@
 import firebase from 'firebase'
 import 'firebase/firestore'
 
-window.firebase = firebase
-
 const config = {
   apiKey: 'AIzaSyC4Fif-DpXabYJat_nMHfFY6j-Kokzqao8',
   authDomain: 'retro-board-dev.firebaseapp.com',
@@ -38,7 +36,7 @@ export const subscribeAuthState = handler =>
 export const signInUserWithGoogle = async () => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const { user } = await firebase.auth().signInWithPopup(googleAuthProvider)
-  await UsersCollection.add(user)
+  await UsersCollection.doc(user.uid).set({ ...user.providerData[0] })
   return user
 }
 
@@ -151,6 +149,10 @@ const defaultColumns = [
   { title: 'Went well' },
   { title: 'Action points' },
 ]
+export const getUserBoards = () =>
+  BoardsCollection.where('owner', '==', getUserRef())
+    .get()
+    .then(result => result.docs.map(doc => doc.data()))
 
 export const getBoardById = id => BoardsCollection.doc(id).get()
 
