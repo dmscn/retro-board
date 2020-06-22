@@ -3,8 +3,13 @@ import styled from 'styled-components'
 import { theme, Text, Tag, Input } from '@gympass/yoga'
 import { MessageCircle, ThumbsUp, PlusCircle } from 'react-feather'
 
-import AddLabelModal from './AddLabelModal'
 import { useCard } from '@contexts/card'
+import { useColumn } from '@contexts/column'
+
+import RemoveIcon from '@components/RemoveIcon'
+import AddLabelModal from './AddLabelModal'
+
+const ANIMATION_DURATION = 250
 
 const CardWrapper = styled.article`
   display: flex;
@@ -18,6 +23,17 @@ const CardWrapper = styled.article`
 
   &: not(:last-child) {
     margin-bottom: ${theme.spacing.medium}px;
+  }
+
+  .delete-icon {
+    display: hidden;
+    opacity: 0;
+    transition: opacity ${ANIMATION_DURATION}ms ease-in-out;
+  }
+
+  &:hover .delete-icon {
+    display: flex;
+    opacity: 1;
   }
 `
 
@@ -70,6 +86,12 @@ const AddButton = styled.button`
   cursor: pointer;
 `
 
+const TitleRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
 const Title = styled(Text.H3)`
   margin: ${theme.spacing.small}px 0;
 `
@@ -82,7 +104,8 @@ const CommentInput = styled(Input)`
 `
 
 export default function Card() {
-  const { card, like, liked, addLabel } = useCard()
+  const { slug, card, like, liked, addLabel } = useCard()
+  const { removeCard } = useColumn()
   const { title, labels = [], description, likedBy = [], comments = [] } = card
 
   const [isModalOpen, setModalOpen] = React.useState(false)
@@ -101,7 +124,15 @@ export default function Card() {
         </AddButton>
       </LabelRow>
 
-      <Title>{title}</Title>
+      <TitleRow>
+        <Title>{title} </Title>
+        <RemoveIcon
+          className="delete-icon"
+          width={18}
+          height={18}
+          onClick={() => removeCard(slug)}
+        />
+      </TitleRow>
       <Description>{description}</Description>
 
       <ActionRow>
