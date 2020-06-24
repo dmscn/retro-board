@@ -1,6 +1,7 @@
 import React from 'react'
 import Avatar from '@components/Avatar'
 import { theme } from '@gympass/yoga'
+import RetroBoardLogo from '@assets/img/logos/retro-board-white.svg'
 
 import styled from 'styled-components'
 
@@ -19,10 +20,13 @@ const LogoWrapper = styled.span`
   height: 100%;
   justify-content: center;
   align-items: center;
+  margin-left: ${theme.spacing.small}px;
 `
 const NavBar = () => (
   <NavWrapper>
-    <LogoWrapper>🦛</LogoWrapper>
+    <LogoWrapper>
+      <RetroBoardLogo height={22} />
+    </LogoWrapper>
     <Avatar src="https://source.unsplash.com/random" />
   </NavWrapper>
 )
