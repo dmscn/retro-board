@@ -33,7 +33,7 @@ const AuthProtectecdRoute = ({ children, ...rest }) => {
 
 function App() {
   return (
-    <YogaProvider theme="Wellness">
+    <YogaProvider theme="Gyms">
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <Router>
