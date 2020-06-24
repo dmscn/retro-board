@@ -1,9 +1,12 @@
 import React from 'react'
-import Avatar from '@components/Avatar'
-import { theme } from '@gympass/yoga'
-import RetroBoardLogo from '@assets/img/logos/retro-board-white.svg'
-
 import styled from 'styled-components'
+import { useHistory } from 'react-router'
+import { theme } from '@gympass/yoga'
+
+import RetroBoardLogo from '@assets/img/logos/retro-board-white.svg'
+import { useAuth } from '@contexts/auth'
+
+import Avatar from '@components/Avatar'
 
 const NavWrapper = styled.nav`
   box-sizing: border-box;
@@ -22,13 +25,22 @@ const LogoWrapper = styled.span`
   align-items: center;
   margin-left: ${theme.spacing.small}px;
 `
-const NavBar = () => (
-  <NavWrapper>
-    <LogoWrapper>
-      <RetroBoardLogo height={22} />
-    </LogoWrapper>
-    <Avatar src="https://source.unsplash.com/random" />
-  </NavWrapper>
-)
+const NavBar = () => {
+  const history = useHistory()
+  const {
+    user: { photoURL },
+  } = useAuth()
+
+  const goToProfile = () => history.push('/profile')
+
+  return (
+    <NavWrapper>
+      <LogoWrapper>
+        <RetroBoardLogo height={22} />
+      </LogoWrapper>
+      <Avatar src={photoURL} onClick={goToProfile} />
+    </NavWrapper>
+  )
+}
 
 export default NavBar

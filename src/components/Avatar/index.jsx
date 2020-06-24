@@ -7,4 +7,5 @@ export default styled.img`
   width: ${theme.spacing.xxlarge}px;
   border: 2px solid ${theme.colors.white};
   border-radius: 100%;
+  cursor: pointer;
 `
