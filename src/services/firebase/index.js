@@ -43,6 +43,8 @@ export const signInUserWithGoogle = async () => {
 export const getCurrentUser = () => firebase.auth().currentUser
 export const getUserRef = () => UsersCollection.doc(getCurrentUser().uid)
 
+export const signOut = () => firebase.auth().signOut()
+
 /*
  * Collections methods
  */

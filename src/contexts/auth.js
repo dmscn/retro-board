@@ -3,6 +3,7 @@ import {
   subscribeAuthState,
   signInUserWithGoogle,
   subscribeUserBoards,
+  signOut,
 } from '@services/firebase'
 
 const AuthContext = React.createContext()
@@ -32,6 +33,7 @@ export function AuthProvider({ children }) {
     initialized,
     userBoards,
     googleSignIn: signInUserWithGoogle,
+    signOut,
   }
 
   return (

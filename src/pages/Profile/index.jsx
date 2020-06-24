@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { theme, Container, Row, Col, Text } from '@gympass/yoga'
+import { theme, Container, Row, Col, Text, Button, Input } from '@gympass/yoga'
+import { LogOut } from 'react-feather'
 import { Link } from 'react-router-dom'
+
+import { addNewBoard } from '@services/firebase'
 
 import Page from '@components/Page'
 import { useAuth } from '@contexts/auth'
@@ -11,7 +14,19 @@ import RemoveIcon from '@components/RemoveIcon'
 const ANIMATION_DURATION = 200
 
 const Header = styled.header`
-  padding: ${theme.spacing.xxlarge}px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${theme.spacing.xxxlarge}px;
+`
+
+const ButtonContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const ButtonText = styled.span`
+  margin-left: ${theme.spacing.xsmall}px;
 `
 
 const BoardsList = styled.ul`
@@ -32,7 +47,7 @@ const BoardListItem = styled.li`
 
   &:hover {
     box-shadow: ${theme.elevations.medium};
-    border: 2px solid ${theme.colors.primary[2]};
+    border: 2px solid ${theme.colors.primary[3]};
   }
 
   .delete-icon {
@@ -48,18 +63,42 @@ const BoardListItem = styled.li`
     text-decoration: none;
   }
 `
+const AddNewBoard = styled.section`
+  display: flex;
+  border-radius: ${theme.spacing.xsmall}px;
+  margin-top: ${theme.spacing.large}px;
+
+  .yoga-button {
+    margin-left: ${theme.spacing.medium}px;
+  }
+`
+
+const EmptyMessage = styled(Text.H2)`
+  margin: ${theme.spacing.large}px;
+  text-align: center;
+`
 
 export default function Profile() {
-  const { userBoards } = useAuth()
+  const { userBoards, signOut } = useAuth()
+
+  const [boardName, setBoardName] = React.useState('')
+
+  const createNewBoard = () => boardName && addNewBoard(boardName)
 
   return (
     <Page>
       <Container fluid>
         <Header>
           <Text.H1>Seus boards</Text.H1>
+          <Button.Text onClick={signOut}>
+            <ButtonContent>
+              <LogOut width={18} height={18} />
+              <ButtonText>Sair</ButtonText>
+            </ButtonContent>
+          </Button.Text>
         </Header>
         <BoardsList>
-          {userBoards &&
+          {userBoards.length > 0 ? (
             userBoards.map(({ id, name }) => (
               <Row key={id}>
                 <Col xxs={12} lg-start={5} lg={4}>
@@ -76,7 +115,34 @@ export default function Profile() {
                   </BoardListItem>
                 </Col>
               </Row>
-            ))}
+            ))
+          ) : (
+            <Row>
+              <Col xxs={12}>
+                <EmptyMessage>Nenhum board...</EmptyMessage>
+              </Col>
+            </Row>
+          )}
+          <Row>
+            <Col xxs={12} lg-start={5} lg={4}>
+              <AddNewBoard>
+                <Input
+                  placeholder="Título do novo board 📌"
+                  value={boardName}
+                  onChange={e => setBoardName(e.target.value)}
+                  label=""
+                  cleanable={false}
+                  full
+                />
+                <Button.Outline
+                  className="yoga-button"
+                  onClick={createNewBoard}
+                >
+                  Criar
+                </Button.Outline>
+              </AddNewBoard>
+            </Col>
+          </Row>
         </BoardsList>
       </Container>
     </Page>
