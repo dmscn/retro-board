@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { theme, Container, Row, Col, Text, Button, Input } from '@gympass/yoga'
 import { LogOut } from 'react-feather'
-import { Link } from 'react-router-dom'
 
 import { addNewBoard } from '@services/firebase'
 
@@ -65,6 +65,8 @@ const BoardListItem = styled.li`
 `
 const AddNewBoard = styled.section`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: ${theme.spacing.xsmall}px;
   margin-top: ${theme.spacing.large}px;
 
@@ -79,11 +81,23 @@ const EmptyMessage = styled(Text.H2)`
 `
 
 export default function Profile() {
+  const history = useHistory()
   const { userBoards, signOut } = useAuth()
 
   const [boardName, setBoardName] = React.useState('')
 
-  const createNewBoard = () => boardName && addNewBoard(boardName)
+  const createNewBoard = () => {
+    if (!boardName) return
+    addNewBoard(boardName)
+    setBoardName('')
+  }
+
+  const gotToBoard = id => () => history.push(`/board/${id}`)
+
+  const removeBoard = id => event => {
+    event.stopPropagation()
+    removeBoardById(id)
+  }
 
   return (
     <Page>
@@ -102,15 +116,13 @@ export default function Profile() {
             userBoards.map(({ id, name }) => (
               <Row key={id}>
                 <Col xxs={12} lg-start={5} lg={4}>
-                  <BoardListItem>
-                    <Link to={`/board/${id}`}>
-                      <Text>{name}</Text>
-                    </Link>
+                  <BoardListItem onClick={gotToBoard(id)}>
+                    <Text>{name}</Text>
                     <RemoveIcon
                       className="delete-icon"
                       width={20}
                       height={20}
-                      onClick={() => removeBoardById(id)}
+                      onClick={removeBoard(id)}
                     />
                   </BoardListItem>
                 </Col>
