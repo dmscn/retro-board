@@ -16,10 +16,10 @@ export default function Welcome() {
     history.push(`/board/${id}`)
   }
 
-  const logUser = () =>
-    googleSignIn().then(() => {
-      history.push('/profile')
-    })
+  const logUser = async () => {
+    if (!user) await googleSignIn()
+    history.push('/profile')
+  }
 
   return (
     <Styled.ViewportLane>
@@ -39,15 +39,19 @@ export default function Welcome() {
           />
         </Styled.IllustrationWrapper>
         <Styled.CenteredRow>
-          <Text.H3 variant="primary">or</Text.H3>
+          <Text.H3 variant="primary">ou</Text.H3>
         </Styled.CenteredRow>
         <Styled.ButtonsRow>
-          <Button className="with-margin" inverted onClick={logUser}>
-            Sign in
-          </Button>
-          <Button inverted onClick={logUser}>
-            Sign up
-          </Button>
+          <Styled.FixedWidthButton
+            className="with-margin"
+            inverted
+            onClick={logUser}
+          >
+            Login
+          </Styled.FixedWidthButton>
+          <Styled.FixedWidthButton inverted onClick={logUser}>
+            Registrar
+          </Styled.FixedWidthButton>
         </Styled.ButtonsRow>
       </Container>
     </Styled.ViewportLane>
