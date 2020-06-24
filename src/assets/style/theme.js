@@ -1,4 +1,4 @@
-import yogaTokens from '@gympass/yoga-tokens'
 import { themes } from '@gympass/yoga'
+import tokens from '@gympass/yoga-tokens'
 
-export default themes.Gyms(yogaTokens)
+export default { yoga: themes.Corporate(tokens) }

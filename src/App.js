@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ThemeProvider } from 'styled-components'
-import { ThemeProvider as YogaProvider } from '@gympass/yoga'
 import GlobalStyled from './globalStyles'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -33,26 +32,24 @@ const AuthProtectecdRoute = ({ children, ...rest }) => {
 
 function App() {
   return (
-    <YogaProvider theme="Gyms">
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <Router>
-            <GlobalStyled />
-            <Switch>
-              <AuthProtectecdRoute path="/board/:slug">
-                <Board />
-              </AuthProtectecdRoute>
-              <AuthProtectecdRoute path="/profile">
-                <Profile />
-              </AuthProtectecdRoute>
-              <Route path="/">
-                <Welcome />
-              </Route>
-            </Switch>
-          </Router>
-        </AuthProvider>
-      </ThemeProvider>
-    </YogaProvider>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <Router>
+          <GlobalStyled />
+          <Switch>
+            <AuthProtectecdRoute path="/board/:slug">
+              <Board />
+            </AuthProtectecdRoute>
+            <AuthProtectecdRoute path="/profile">
+              <Profile />
+            </AuthProtectecdRoute>
+            <Route path="/">
+              <Welcome />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
