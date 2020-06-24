@@ -13,7 +13,7 @@ export const ViewportLane = styled.main`
       yoga: { colors },
     },
   }) => `
-    background: ${colors.secondary[0]}
+    background: ${colors.primary[0]}
   `}
 `
 export const CenteredRow = styled(Row)`
