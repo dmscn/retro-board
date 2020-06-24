@@ -1,11 +1,16 @@
 import React from 'react'
-import { subscribeAuthState, signInUserWithGoogle } from '@services/firebase'
+import {
+  subscribeAuthState,
+  signInUserWithGoogle,
+  subscribeUserBoards,
+} from '@services/firebase'
 
 const AuthContext = React.createContext()
 
 export function AuthProvider({ children }) {
   const [user, setUser] = React.useState(null)
   const [initialized, setInitialized] = React.useState(false)
+  const [userBoards, setUserBoards] = React.useState([])
 
   React.useLayoutEffect(() => {
     const unsubscribe = subscribeAuthState(user => {
@@ -15,9 +20,17 @@ export function AuthProvider({ children }) {
     return () => unsubscribe()
   }, [])
 
+  React.useEffect(() => {
+    let unsubscribe
+    if (user) unsubscribe = subscribeUserBoards(setUserBoards)
+
+    return () => unsubscribe && unsubscribe()
+  }, [user])
+
   const contextValues = {
     user,
     initialized,
+    userBoards,
     googleSignIn: signInUserWithGoogle,
   }
 

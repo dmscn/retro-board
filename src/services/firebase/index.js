@@ -46,27 +46,27 @@ export const getUserRef = () => UsersCollection.doc(getCurrentUser().uid)
 /*
  * Collections methods
  */
-export const subscribeToCollection = (collection, callback) =>
+export const subscribeToCollection = (collection, handler) =>
   collection.onSnapshot(snapshot => {
     const newRegisters = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
     }))
 
-    callback(newRegisters)
+    handler(newRegisters)
   })
 
 /*
  * Cards methods
  */
-export const subscribeColumnCards = (boardSlug, columnSlug, callback) => {
+export const subscribeColumnCards = (boardSlug, columnSlug, handler) => {
   const CardsCollection = BoardsCollection.doc(boardSlug)
     .collection(COLUMNS_COLLECTION)
     .doc(columnSlug)
     .collection(CARDS_COLLECTION)
     .orderBy('createdAt')
 
-  return subscribeToCollection(CardsCollection, callback)
+  return subscribeToCollection(CardsCollection, handler)
 }
 
 export const addNewCardToBoardColumn = (boardSlug, columnSlug, card) =>
@@ -119,12 +119,12 @@ export const unlikeCard = (boardSlug, columnSlug, cardSlug) =>
 /*
  * Columns methods
  */
-export const subscribeBoardColumns = (boardSlug, callback) => {
+export const subscribeBoardColumns = (boardSlug, handler) => {
   const ColumnCollection = BoardsCollection.doc(boardSlug)
     .collection(COLUMNS_COLLECTION)
     .orderBy('createdAt')
 
-  return subscribeToCollection(ColumnCollection, callback)
+  return subscribeToCollection(ColumnCollection, handler)
 }
 
 export const addNewColumnToBoard = (boardSlug, column) =>
@@ -149,10 +149,14 @@ const defaultColumns = [
   { title: 'Went well' },
   { title: 'Action points' },
 ]
-export const getUserBoards = () =>
-  BoardsCollection.where('owner', '==', getUserRef())
-    .get()
-    .then(result => result.docs.map(doc => doc.data()))
+export const subscribeUserBoards = handler => {
+  const UserBoardsCollections = BoardsCollection.where(
+    'owner',
+    '==',
+    getUserRef()
+  )
+  return subscribeToCollection(UserBoardsCollections, handler)
+}
 
 export const getBoardById = id => BoardsCollection.doc(id).get()
 
@@ -170,3 +174,5 @@ export const addNewBoard = async name => {
   defaultColumns.forEach(addColumn)
   return id
 }
+
+export const removeBoardById = id => BoardsCollection.doc(id).delete()

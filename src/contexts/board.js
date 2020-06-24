@@ -4,7 +4,6 @@ import {
   addNewColumnToBoard,
   removeColumnFromBoard,
   getBoardById,
-  getUserBoards,
 } from '@services/firebase'
 
 const BoardContext = React.createContext()
@@ -33,7 +32,6 @@ export const BoardProvider = ({ children, slug }) => {
     columns,
     addColumn,
     removeColumn,
-    getUserBoards,
   }
 
   return (
