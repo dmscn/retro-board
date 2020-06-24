@@ -12,6 +12,13 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     z-index: 99999;
   }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
 `
 
 export default GlobalStyle

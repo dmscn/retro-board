@@ -2,12 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as YogaProvider } from '@gympass/yoga'
-import Board from '@pages/Board'
-import Welcome from '@pages/Welcome'
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import GlobalStyled from './globalStyles'
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+
 import theme from '@assets/style/theme'
 import { AuthProvider, useAuth } from '@contexts/auth'
+
+import Board from '@pages/Board'
+import Welcome from '@pages/Welcome'
+import Profile from '@pages/Profile'
 
 const AuthProtectecdRoute = ({ children, ...rest }) => {
   const { user, initialized } = useAuth()
@@ -38,6 +41,9 @@ function App() {
             <Switch>
               <AuthProtectecdRoute path="/board/:slug">
                 <Board />
+              </AuthProtectecdRoute>
+              <AuthProtectecdRoute path="/profile">
+                <Profile />
               </AuthProtectecdRoute>
               <Route path="/">
                 <Welcome />

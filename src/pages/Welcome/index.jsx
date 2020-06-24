@@ -18,7 +18,7 @@ export default function Welcome() {
 
   const logUser = () =>
     googleSignIn().then(() => {
-      // history.push('/profile')
+      history.push('/profile')
     })
 
   return (
