@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 const NavWrapper = styled.nav`
   box-sizing: border-box;
-  background: ${theme.colors.primary[1]};
+  background: ${theme.colors.primary[3]};
   width: 100%;
   display: flex;
   align-items: center;

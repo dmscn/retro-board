@@ -33,7 +33,7 @@ const Header = styled.header`
   ${graySpacerStyle}
   box-sizing: border-box;
   position: relative;
-  border-bottom: 2px solid ${theme.colors.primary[1]};
+  border-bottom: 2px solid ${theme.colors.primary[3]};
 
   .delete-icon {
     opacity: 0;

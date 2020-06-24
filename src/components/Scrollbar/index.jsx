@@ -11,11 +11,11 @@ const customScrollbarCss = css`
 
   ::-webkit-scrollbar {
     width: 6px;
-    background-color: ${theme.colors.white};
+    background-color: ${theme.colors.primary[0]};
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${theme.colors.primary[1]};
+    background-color: ${theme.colors.primary[3]};
   }
 `
 

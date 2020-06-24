@@ -26,7 +26,7 @@ const AddNewColumn = styled.div`
   transition-duration: 300ms;
 
   &:hover {
-    color: ${theme.colors.primary[1]};
+    color: ${theme.colors.primary[3]};
   }
 `
 
