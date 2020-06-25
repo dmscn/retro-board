@@ -160,7 +160,13 @@ export const subscribeUserBoards = handler => {
   return subscribeToCollection(UserBoardsCollections, handler)
 }
 
-export const getBoardById = id => BoardsCollection.doc(id).get()
+export const getBoardById = id =>
+  BoardsCollection.doc(id)
+    .get()
+    .then(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
 
 export const addNewBoard = async name => {
   const board = {
