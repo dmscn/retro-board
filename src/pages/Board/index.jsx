@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { theme, Text } from '@gympass/yoga'
+import { theme, Text, Input, Button } from '@gympass/yoga'
 import { BoardProvider } from '@contexts/board'
 import { getBoardById } from '@services/firebase'
 import { Edit2 } from 'react-feather'
@@ -43,9 +43,39 @@ const EditWrapper = styled.div`
   }
 `
 
+const CustomButton = styled(Button)`
+  margin-left: ${theme.spacing.small}px;
+`
+
+const EditBoard = ({ initialValue, onSubmit, onClean }) => {
+  const [boardName, setBoardName] = React.useState(initialValue)
+
+  return (
+    <React.Fragment>
+      <Input
+        label=""
+        value={boardName}
+        onChange={e => setBoardName(e.target.value)}
+        onClean={onClean}
+      />
+      <CustomButton onClick={() => onSubmit(boardName)}>Enviar</CustomButton>
+    </React.Fragment>
+  )
+}
+
+const DisplayBoardName = ({ boardName, onEditButtonClick }) => (
+  <React.Fragment>
+    <Text.H1>{boardName}</Text.H1>
+    <EditWrapper onClick={onEditButtonClick}>
+      <Edit2 width={20} height={20} />
+    </EditWrapper>
+  </React.Fragment>
+)
+
 export default function Board() {
   const [board, setBoard] = React.useState(null)
   const { slug } = useParams()
+  const [isEditing, setIsEditing] = React.useState(false)
 
   React.useEffect(() => {
     let isMounted = true
@@ -54,14 +84,27 @@ export default function Board() {
     return () => (isMounted = false)
   }, [])
 
+  const updateBoardName = boardName => {
+    if (!boardName || boardName === board.name) return
+    console.log(boardName)
+  }
+
   return (
     <Page>
       {board && (
         <Header>
-          <Text.H1>{board.name}</Text.H1>
-          <EditWrapper>
-            <Edit2 width={20} height={20} />
-          </EditWrapper>
+          {isEditing ? (
+            <EditBoard
+              initialValue={board.name}
+              onSubmit={updateBoardName}
+              onClean={() => setIsEditing(false)}
+            />
+          ) : (
+            <DisplayBoardName
+              boardName={board.name}
+              onEditButtonClick={() => setIsEditing(true)}
+            />
+          )}
         </Header>
       )}
       <BoardProvider slug={slug}>
