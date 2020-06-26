@@ -17,7 +17,7 @@ export function ColumnProvider({ children, column }) {
 
   React.useEffect(() => {
     const subscribeCards = withBoardAndColumn(subscribeColumnCards)
-    subscribeCards(setCards)
+    return subscribeCards(setCards)
   }, [])
 
   const addCard = withBoardAndColumn(addNewCardToBoardColumn)

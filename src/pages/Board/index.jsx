@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme, Text, Input, Button } from '@gympass/yoga'
 import { BoardProvider } from '@contexts/board'
-import { getBoardById } from '@services/firebase'
+import { subscribeToBoard, updateBoardById } from '@services/firebase'
 import { Edit2 } from 'react-feather'
 
 import Page from '@components/Page'
@@ -47,7 +47,7 @@ const CustomButton = styled(Button)`
   margin-left: ${theme.spacing.small}px;
 `
 
-const EditBoard = ({ initialValue, onSubmit, onClean }) => {
+const EditBoard = ({ initialValue, onSubmit }) => {
   const [boardName, setBoardName] = React.useState(initialValue)
 
   return (
@@ -56,7 +56,7 @@ const EditBoard = ({ initialValue, onSubmit, onClean }) => {
         label=""
         value={boardName}
         onChange={e => setBoardName(e.target.value)}
-        onClean={onClean}
+        onClean={() => setBoardName('')}
       />
       <CustomButton onClick={() => onSubmit(boardName)}>Enviar</CustomButton>
     </React.Fragment>
@@ -77,16 +77,12 @@ export default function Board() {
   const { slug } = useParams()
   const [isEditing, setIsEditing] = React.useState(false)
 
-  React.useEffect(() => {
-    let isMounted = true
-    getBoardById(slug).then(board => isMounted && setBoard(board))
+  React.useEffect(() => subscribeToBoard(slug, setBoard), [])
 
-    return () => (isMounted = false)
-  }, [])
-
-  const updateBoardName = boardName => {
-    if (!boardName || boardName === board.name) return
-    console.log(boardName)
+  const updateBoardName = async boardName => {
+    setIsEditing(false)
+    if (!boardName) return
+    await updateBoardById(slug, { name: boardName })
   }
 
   return (
@@ -94,11 +90,7 @@ export default function Board() {
       {board && (
         <Header>
           {isEditing ? (
-            <EditBoard
-              initialValue={board.name}
-              onSubmit={updateBoardName}
-              onClean={() => setIsEditing(false)}
-            />
+            <EditBoard initialValue={board.name} onSubmit={updateBoardName} />
           ) : (
             <DisplayBoardName
               boardName={board.name}

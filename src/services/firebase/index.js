@@ -160,6 +160,14 @@ export const subscribeUserBoards = handler => {
   return subscribeToCollection(UserBoardsCollections, handler)
 }
 
+export const subscribeToBoard = (boardId, handler) =>
+  BoardsCollection.doc(boardId).onSnapshot(doc =>
+    handler({
+      id: doc.id,
+      ...doc.data(),
+    })
+  )
+
 export const getBoardById = id =>
   BoardsCollection.doc(id)
     .get()
@@ -184,3 +192,6 @@ export const addNewBoard = async name => {
 }
 
 export const removeBoardById = id => BoardsCollection.doc(id).delete()
+
+export const updateBoardById = (id, board) =>
+  BoardsCollection.doc(id).update(board)

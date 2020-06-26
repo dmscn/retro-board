@@ -10,9 +10,7 @@ const BoardContext = React.createContext()
 export const BoardProvider = ({ children, slug }) => {
   const [columns, setColumns] = React.useState([])
 
-  React.useEffect(() => {
-    subscribeBoardColumns(slug, setColumns)
-  }, [])
+  React.useEffect(() => subscribeBoardColumns(slug, setColumns), [])
 
   const addColumn = title => addNewColumnToBoard(slug, { title })
   const removeColumn = columnSlug => removeColumnFromBoard(slug, columnSlug)

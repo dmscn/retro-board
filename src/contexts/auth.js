@@ -13,13 +13,14 @@ export function AuthProvider({ children }) {
   const [initialized, setInitialized] = React.useState(false)
   const [userBoards, setUserBoards] = React.useState([])
 
-  React.useLayoutEffect(() => {
-    const unsubscribe = subscribeAuthState(user => {
-      setUser(user)
-      setInitialized(true)
-    })
-    return () => unsubscribe()
-  }, [])
+  React.useLayoutEffect(
+    () =>
+      subscribeAuthState(user => {
+        setUser(user)
+        setInitialized(true)
+      }),
+    []
+  )
 
   React.useEffect(() => {
     let unsubscribe
