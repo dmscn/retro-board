@@ -1,7 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { theme, Text, Tag, Input } from '@gympass/yoga'
-import { MessageCircle, ThumbsUp, PlusCircle } from 'react-feather'
+import {
+  MessageCircle,
+  ThumbsUp,
+  PlusCircle,
+  ChevronUp,
+  ChevronDown,
+} from 'react-feather'
 
 import { useCard } from '@contexts/card'
 import { useColumn } from '@contexts/column'
@@ -99,17 +105,72 @@ const Description = styled(Text.Small)`
   margin-bottom: ${theme.spacing.small}px;
 `
 
+const CommentListItem = styled.li`
+  padding: ${theme.spacing.medium}px;
+  margin: ${theme.spacing.small}px 0;
+  background-color: ${theme.colors.gray[1]};
+  border-radius: ${theme.spacing.xxsmall}px;
+`
+
 const CommentInput = styled(Input)`
   margin-top: ${theme.spacing.small}px;
 `
 
+const SeeMoreComments = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: ${theme.colors.primary[3]};
+`
+
+const CommentsList = ({ comments }) => {
+  const [displayAll, setDisplayAll] = React.useState(false)
+  const toggleComments = () => setDisplayAll(prev => !prev)
+
+  return (
+    <ul>
+      {comments
+        .map(comment => (
+          <CommentListItem key={comment}>
+            <Text>{comment}</Text>
+          </CommentListItem>
+        ))
+        .slice(0, displayAll ? comments.length : 3)}
+
+      {comments.length > 3 && (
+        <SeeMoreComments variant="primary" onClick={() => toggleComments()}>
+          {displayAll ? (
+            <React.Fragment>
+              <ChevronUp width={20} />
+              <Text.H4 variant="primary">ver menos</Text.H4>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <ChevronDown width={20} />
+              <Text.H4 variant="primary">ver mais</Text.H4>
+            </React.Fragment>
+          )}
+        </SeeMoreComments>
+      )}
+    </ul>
+  )
+}
+
 export default function Card() {
-  const { slug, card, like, liked, addLabel } = useCard()
+  const { slug, card, like, liked, addLabel, addComment } = useCard()
   const { removeCard } = useColumn()
   const { title, labels = [], description, likedBy = [], comments = [] } = card
 
   const [isModalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(prev => !prev)
+
+  const [comment, setComment] = React.useState('')
+  const addNewComment = () => {
+    addComment(comment)
+    setComment('')
+  }
 
   return (
     <CardWrapper>
@@ -145,8 +206,17 @@ export default function Card() {
           <CounterText>{comments.length}</CounterText>
         </IconWrapper>
       </ActionRow>
-
-      <CommentInput full label="Add a comment..." />
+      <CommentsList comments={comments} />
+      <form onSubmit={addNewComment}>
+        <CommentInput
+          full
+          label=""
+          placeholder="Add a comment..."
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+          cleanable={false}
+        />
+      </form>
       {isModalOpen && (
         <AddLabelModal onClose={toggleModal} onSubmit={addLabel} />
       )}

@@ -109,6 +109,11 @@ export const addNewCardLabel = (boardSlug, columnSlug, cardSlug, label) =>
     labels: firebase.firestore.FieldValue.arrayUnion(label),
   })
 
+export const addNewCardComment = (boardSlug, columnSlug, cardSlug, comment) =>
+  updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
+    comments: firebase.firestore.FieldValue.arrayUnion(comment),
+  })
+
 export const likeCard = (boardSlug, columnSlug, cardSlug) =>
   updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
     likedBy: firebase.firestore.FieldValue.arrayUnion(getCurrentUser().uid),
@@ -118,6 +123,7 @@ export const unlikeCard = (boardSlug, columnSlug, cardSlug) =>
   updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
     likedBy: firebase.firestore.FieldValue.arrayRemove(getCurrentUser().uid),
   })
+
 /*
  * Columns methods
  */

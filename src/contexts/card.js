@@ -3,6 +3,7 @@ import { useBoard } from './board'
 import { useColumn } from './column'
 import {
   addNewCardLabel,
+  addNewCardComment,
   likeCard,
   unlikeCard,
   getCurrentUser,
@@ -19,13 +20,15 @@ export function CardProvider({ children, card }) {
   const withSlugs = fn => (...args) =>
     fn(boardSlug, columnSlug, card.id, ...args)
 
-  const addLabel = withSlugs(addNewCardLabel)
   const like = liked ? withSlugs(unlikeCard) : withSlugs(likeCard)
+  const addLabel = withSlugs(addNewCardLabel)
+  const addComment = withSlugs(addNewCardComment)
 
   const contextValues = {
     slug: card.id,
     card,
     addLabel,
+    addComment,
     like,
     liked,
   }
