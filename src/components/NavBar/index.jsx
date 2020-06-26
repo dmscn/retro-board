@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { theme } from '@gympass/yoga'
 
-import RetroBoardLogo from '@assets/img/logos/retro-board-white.svg'
+import RetroBoardLogo from '@assets/img/logos/retro-board.svg'
 import { useAuth } from '@contexts/auth'
 
 import Avatar from '@components/Avatar'
