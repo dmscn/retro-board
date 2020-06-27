@@ -78,9 +78,9 @@ export default function BoardColumn({ active }) {
 
   return (
     <ColumnWrapper>
-      <Header active={active} onClick={() => removeColumn(slug)}>
+      <Header active={active}>
         <HeaderText>{column.title}</HeaderText>
-        <IconWrapper className="delete-icon">
+        <IconWrapper className="delete-icon" onClick={() => removeColumn(slug)}>
           <RemoveIcon height={18} width={18} />
         </IconWrapper>
       </Header>
