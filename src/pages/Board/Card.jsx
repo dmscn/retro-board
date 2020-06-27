@@ -4,7 +4,7 @@ import { theme, Text, Tag, Input } from '@gympass/yoga'
 import {
   MessageCircle,
   ThumbsUp,
-  PlusCircle,
+  Plus,
   ChevronUp,
   ChevronDown,
 } from 'react-feather'
@@ -73,23 +73,22 @@ const IconWrapper = styled.div`
 `
 
 const LabelRow = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  overflow: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: ${theme.spacing.small}px;
 
   &::-webkit-scrollbar {
     display: none;
   }
 `
 
-const AddButton = styled.button`
-  display: flex;
+const ButtonContent = styled.div`
+  display: inline-flex;
+  flex: 1;
+  justify-content: space-between;
   align-items: center;
-  border: 0;
-  padding: 0 ${theme.spacing.xxsmall}px;
-  background-color: transparent;
-  color: ${theme.colors.gray[4]};
-  cursor: pointer;
 `
 
 const TitleRow = styled.div`
@@ -99,10 +98,10 @@ const TitleRow = styled.div`
 `
 
 const Title = styled(Text.H3)`
-  margin: ${theme.spacing.small}px 0;
+  margin: ${theme.spacing.xsmall}px 0;
 `
 const Description = styled(Text.Small)`
-  margin-bottom: ${theme.spacing.small}px;
+  margin-bottom: ${theme.spacing.medium}px;
 `
 
 const CommentListItem = styled.li`
@@ -123,6 +122,18 @@ const SeeMoreComments = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${theme.colors.primary[3]};
+`
+
+const AddLabel = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: ${theme.colors.primary[3]};
+  cursor: pointer;
+
+  .icon {
+    margin-right: ${theme.spacing.xxsmall}px;
+  }
 `
 
 const CommentsList = ({ comments }) => {
@@ -174,17 +185,6 @@ export default function Card() {
 
   return (
     <CardWrapper>
-      <LabelRow>
-        {labels.map(label => (
-          <Label key={label} icon={false}>
-            {label}
-          </Label>
-        ))}
-        <AddButton onClick={toggleModal}>
-          <PlusCircle width={20} />
-        </AddButton>
-      </LabelRow>
-
       <TitleRow>
         <Title>{title} </Title>
         <RemoveIcon
@@ -195,6 +195,19 @@ export default function Card() {
         />
       </TitleRow>
       <Description>{description}</Description>
+      <LabelRow>
+        {labels.map(label => (
+          <Label key={label} icon={false} variant="tertiary">
+            {label}
+          </Label>
+        ))}
+        <AddLabel onClick={toggleModal}>
+          <ButtonContent>
+            <Plus className="icon" width={14} />
+            <Text.Small variant="primary">adicionar categoria</Text.Small>
+          </ButtonContent>
+        </AddLabel>
+      </LabelRow>
 
       <ActionRow>
         <IconWrapper onClick={like} liked={liked}>
