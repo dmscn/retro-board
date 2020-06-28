@@ -145,7 +145,7 @@ const CommentsList = ({ comments }) => {
       {comments
         .map(comment => (
           <CommentListItem key={comment}>
-            <Text>{comment}</Text>
+            <Text.Small>{comment}</Text.Small>
           </CommentListItem>
         ))
         .slice(0, displayAll ? comments.length : 3)}
