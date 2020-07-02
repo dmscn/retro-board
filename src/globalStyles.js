@@ -1,8 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
+import { theme } from '@gympass/yoga'
 
 const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  }
+
+  ::selection {
+    color: ${theme.colors.secondary[0]};
+    background: ${theme.colors.primary[2]};
   }
   
   html, body, #app {
