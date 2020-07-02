@@ -1,12 +1,16 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  }
+  
   html, body, #app {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    
   }
 
   #modal-root {
