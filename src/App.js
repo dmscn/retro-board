@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from '@contexts/auth'
 import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
 import Profile from '@pages/Profile'
+import Login from '@pages/Login'
 
 const AuthProtectecdRoute = ({ children, ...rest }) => {
   const { user, initialized } = useAuth()
@@ -43,6 +44,9 @@ function App() {
             <AuthProtectecdRoute path="/profile">
               <Profile />
             </AuthProtectecdRoute>
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route path="/">
               <Welcome />
             </Route>
