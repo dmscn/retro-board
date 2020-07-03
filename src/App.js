@@ -23,7 +23,7 @@ const AuthProtectecdRoute = ({ children, ...rest }) => {
           user ? (
             children
           ) : (
-            <Redirect to={{ pathname: '/', state: { from: location } }} />
+            <Redirect to={{ pathname: '/login', state: { from: location } }} />
           )
         }
       />

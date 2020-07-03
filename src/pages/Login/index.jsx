@@ -1,10 +1,12 @@
 import React from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Text, Container, Row, Col, Button, theme } from '@gympass/yoga'
 
 import GoogleLogo from '@assets/img/logos/google.svg'
-
 import LoginIllustration from '@assets/img/illustrations/svg/login.svg'
+
+import { useAuth } from '@contexts/auth'
 
 const PageWrapper = styled.main`
   height: 100%;
@@ -32,6 +34,14 @@ const ButtonContent = styled.div`
 `
 
 export default function Login() {
+  const history = useHistory()
+  const location = useLocation()
+  const { googleSignIn } = useAuth()
+
+  const from = location?.state?.from || { pathname: '/profile' }
+
+  const logUser = () => googleSignIn().then(() => history.replace(from))
+
   return (
     <PageWrapper>
       <Container>
@@ -43,7 +53,7 @@ export default function Login() {
               width={300}
             />
             <Title variant="primary">Faça seu login</Title>
-            <Button.Outline inverted full>
+            <Button.Outline inverted full onClick={logUser}>
               <ButtonContent>
                 <GoogleLogo height={20} width={20} />{' '}
                 <span className="text">Login Google</span>

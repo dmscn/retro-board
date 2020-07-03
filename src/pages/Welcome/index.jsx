@@ -8,17 +8,14 @@ import { useAuth } from '@contexts/auth'
 
 export default function Welcome() {
   const history = useHistory()
-  const { user, googleSignIn } = useAuth()
+  const { user } = useAuth()
+
+  const goToLogin = () => history.push('/login')
 
   const createNewBoard = async () => {
-    if (!user) await googleSignIn()
+    if (!user) goToLogin()
     const id = await addNewBoard('Untitled')
     history.push(`/board/${id}`)
-  }
-
-  const logUser = async () => {
-    if (!user) await googleSignIn()
-    history.push('/profile')
   }
 
   return (
@@ -45,11 +42,11 @@ export default function Welcome() {
           <Styled.FixedWidthButton
             className="with-margin"
             inverted
-            onClick={logUser}
+            onClick={goToLogin}
           >
             Login
           </Styled.FixedWidthButton>
-          <Styled.FixedWidthButton inverted onClick={logUser}>
+          <Styled.FixedWidthButton inverted onClick={goToLogin}>
             Registrar
           </Styled.FixedWidthButton>
         </Styled.ButtonsRow>
