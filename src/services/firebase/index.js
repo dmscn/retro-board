@@ -174,6 +174,18 @@ export const subscribeToBoard = (boardId, handler) =>
     })
   )
 
+export const followBoard = slug =>
+  BoardsCollection.doc(slug).update({
+    onlineUsers: firebase.firestore.FieldValue.arrayUnion(getCurrentUser().uid),
+  })
+
+export const unfollowBoard = slug =>
+  BoardsCollection.doc(slug).update({
+    onlineUsers: firebase.firestore.FieldValue.arrayRemove(
+      getCurrentUser().uid
+    ),
+  })
+
 export const getBoardById = id =>
   BoardsCollection.doc(id)
     .get()
@@ -181,6 +193,21 @@ export const getBoardById = id =>
       id: doc.id,
       ...doc.data(),
     }))
+
+export const getOnlineUsersInBoard = boardSlug =>
+  BoardsCollection.doc(boardSlug)
+    .get()
+    .then(doc => {
+      const { onlineUsers } = doc.data()
+      const handleUser = user =>
+        UsersCollection.doc(user)
+          .get()
+          .then(userDoc => ({
+            id: userDoc.id,
+            ...userDoc.data(),
+          }))
+      return Promise.all(onlineUsers.map(handleUser))
+    })
 
 export const addNewBoard = async name => {
   const board = {

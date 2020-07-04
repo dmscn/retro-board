@@ -16,32 +16,17 @@ const Wrapper = styled.section`
   }
 `
 
-export default function OnlineUsersRow(/*{ loggedUsers = [] }*/) {
+export default function OnlineUsersRow({ onlineUsers = [] }) {
   return (
     <Wrapper>
-      {/* {loggedUsers.map(user => (
-        <Avatar key={user.uid} picture={user.picture} />
-      ))} */}
-      <Avatar
-        className="user-avatar"
-        picture="https://i.pravatar.cc/300?img=1"
-        color={tokens.colors.positive[0]}
-      />
-      <Avatar
-        className="user-avatar"
-        picture="https://i.pravatar.cc/300?img=2"
-        color={tokens.colors.positive[0]}
-      />
-      <Avatar
-        className="user-avatar"
-        picture="https://i.pravatar.cc/300?img=3"
-        color={tokens.colors.positive[0]}
-      />
-      <Avatar
-        className="user-avatar"
-        picture="https://i.pravatar.cc/300?img=4"
-        color={tokens.colors.positive[0]}
-      />
+      {onlineUsers.map(user => (
+        <Avatar
+          key={user.id}
+          className="user-avatar"
+          picture={user.photoURL}
+          color={tokens.colors.positive[0]}
+        />
+      ))}
     </Wrapper>
   )
 }

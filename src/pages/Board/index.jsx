@@ -3,13 +3,20 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme, Text, Input, Button } from '@gympass/yoga'
 import { BoardProvider } from '@contexts/board'
-import { subscribeToBoard, updateBoardById } from '@services/firebase'
+import {
+  subscribeToBoard,
+  updateBoardById,
+  followBoard,
+  unfollowBoard,
+  getOnlineUsersInBoard,
+} from '@services/firebase'
 import { Edit2 } from 'react-feather'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import ColumnsList from './ColumnsList'
 import OnlineUsersRow from './OnlineUsersRow'
+import useUnload from '@hooks/useUnload'
 
 const ANIMATION_DURATION = 200
 
@@ -78,8 +85,25 @@ export default function Board() {
   const [board, setBoard] = React.useState(null)
   const { slug } = useParams()
   const [isEditing, setIsEditing] = React.useState(false)
+  const [onlineUsers, setOnlineUsers] = React.useState([])
 
-  React.useEffect(() => subscribeToBoard(slug, setBoard), [])
+  React.useEffect(() => {
+    followBoard(slug)
+
+    return subscribeToBoard(slug, setBoard)
+  }, [])
+
+  useUnload(() => unfollowBoard(slug))
+
+  React.useEffect(() => {
+    let isMounted = true
+
+    getOnlineUsersInBoard(slug).then(
+      users => isMounted && setOnlineUsers(users)
+    )
+
+    return () => (isMounted = false)
+  }, [board?.onlineUsers])
 
   const updateBoardName = async boardName => {
     setIsEditing(false)
@@ -89,7 +113,7 @@ export default function Board() {
 
   return (
     <Page>
-      <OnlineUsersRow />
+      <OnlineUsersRow onlineUsers={onlineUsers} />
       {board && (
         <Header>
           {isEditing ? (
