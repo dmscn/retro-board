@@ -38,7 +38,7 @@ const NavBar = () => {
       <LogoWrapper>
         <RetroBoardLogo height={22} />
       </LogoWrapper>
-      <Avatar src={photoURL} onClick={goToProfile} />
+      <Avatar picture={photoURL} onClick={goToProfile} />
     </NavWrapper>
   )
 }

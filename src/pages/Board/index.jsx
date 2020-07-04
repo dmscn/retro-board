@@ -9,6 +9,7 @@ import { Edit2 } from 'react-feather'
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import ColumnsList from './ColumnsList'
+import OnlineUsersRow from './OnlineUsersRow'
 
 const ANIMATION_DURATION = 200
 
@@ -19,7 +20,8 @@ const ScrollbarWithPadding = styled(Scrollbar)`
 const Header = styled.header`
   display: flex;
   align-items: center;
-  padding: ${theme.spacing.large}px;
+  margin-top: ${theme.spacing.medium}px;
+  padding: 0 ${theme.spacing.large}px;
 `
 
 const EditWrapper = styled.div`
@@ -87,6 +89,7 @@ export default function Board() {
 
   return (
     <Page>
+      <OnlineUsersRow />
       {board && (
         <Header>
           {isEditing ? (
