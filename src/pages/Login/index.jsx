@@ -13,7 +13,7 @@ const PageWrapper = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${theme.colors.tertiary[0]};
+  background-color: ${theme.colors.energy[0]};
 `
 
 const Title = styled(Text.H2)`
@@ -53,7 +53,7 @@ export default function Login() {
               width={300}
             />
             <Title variant="primary">Faça seu login</Title>
-            <Button.Outline inverted full onClick={logUser}>
+            <Button.Outline full onClick={logUser}>
               <ButtonContent>
                 <GoogleLogo height={20} width={20} />{' '}
                 <span className="text">Login Google</span>

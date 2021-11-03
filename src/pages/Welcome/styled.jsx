@@ -13,7 +13,7 @@ export const ViewportLane = styled.main`
       yoga: { colors },
     },
   }) => `
-    background: ${colors.tertiary[0]}
+    background: ${colors.energy[0]}
   `}
 `
 export const CenteredRow = styled(Row)`
@@ -32,6 +32,6 @@ export const ButtonsRow = styled(CenteredRow)`
   }
 `
 
-export const FixedWidthButton = styled(Button)`
+export const FixedWidthButton = styled(Button.Outline)`
   width: calc(${theme.spacing.huge}px * 2);
 `

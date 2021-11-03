@@ -17,13 +17,14 @@ const ButtonsRow = styled.div`
 export default function AddColumnModal({ onClose }) {
   const { addColumn } = useBoard()
   const inputRef = React.useRef()
+  const [columnName, setColumnName] = React.useState('')
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
 
   const handleOnSubmit = () => {
-    addColumn(inputRef.current.value)
+    addColumn(columnName)
     onClose()
   }
 
@@ -31,7 +32,13 @@ export default function AddColumnModal({ onClose }) {
     <Modal onClose={onClose}>
       <Text.H2 variant="primary">Criar nova coluna</Text.H2>
       <Content>
-        <Input ref={inputRef} label="Nome da nova coluna" full />
+        <Input
+          ref={inputRef}
+          value={columnName}
+          onChange={e => setColumnName(e.target.value)}
+          label="Nome da nova coluna"
+          full
+        />
       </Content>
       <ButtonsRow>
         <Button.Text onClick={onClose}>Cancelar</Button.Text>

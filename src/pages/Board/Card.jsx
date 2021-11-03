@@ -50,7 +50,7 @@ const ActionRow = styled.footer`
 
 const CounterText = styled(Text.Small)`
   ${({ liked, ...props }) =>
-    liked && `color: ${theme.colors.primary(props)[2]};`}
+    liked && `color: ${theme.colors.secondary(props)};`}
   margin-left: ${theme.spacing.xsmall}px;
 `
 
@@ -65,7 +65,7 @@ const IconWrapper = styled.div`
   padding: ${theme.spacing.xxsmall}px;
   cursor: pointer;
   ${({ liked, ...props }) =>
-    liked && `color: ${theme.colors.primary(props)[2]};`}
+    liked && `color: ${theme.colors.secondary(props)};`}
 
   &:not(:last-child) {
     margin-right: ${theme.spacing.small}px;
@@ -107,7 +107,7 @@ const Description = styled(Text.Small)`
 const CommentListItem = styled.li`
   padding: ${theme.spacing.medium}px;
   margin: ${theme.spacing.small}px 0;
-  background-color: ${theme.colors.gray[1]};
+  background-color: ${theme.colors.elements.backgroundAndDisabled};
   border-radius: ${theme.spacing.xxsmall}px;
 `
 
@@ -197,7 +197,7 @@ export default function Card() {
       <Description>{description}</Description>
       <LabelRow>
         {labels.map(label => (
-          <Label key={label} icon={false} variant="tertiary">
+          <Label key={label} icon={false} variant="secondary">
             {label}
           </Label>
         ))}

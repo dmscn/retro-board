@@ -39,14 +39,10 @@ export default function Welcome() {
           <Text.H3 variant="primary">ou</Text.H3>
         </Styled.CenteredRow>
         <Styled.ButtonsRow>
-          <Styled.FixedWidthButton
-            className="with-margin"
-            inverted
-            onClick={goToLogin}
-          >
+          <Styled.FixedWidthButton className="with-margin" onClick={goToLogin}>
             Login
           </Styled.FixedWidthButton>
-          <Styled.FixedWidthButton inverted onClick={goToLogin}>
+          <Styled.FixedWidthButton onClick={goToLogin}>
             Registrar
           </Styled.FixedWidthButton>
         </Styled.ButtonsRow>

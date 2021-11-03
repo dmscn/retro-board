@@ -40,7 +40,7 @@ const EditWrapper = styled.div`
   border-radius: 100%;
   overflow: hidden;
   background-color: 'transparent';
-  color: ${theme.colors.dark};
+  color: ${theme.colors.stamina};
   cursor: pointer;
   transition-duration: ${ANIMATION_DURATION}ms;
   transition-property: color, background-color;

@@ -39,7 +39,7 @@ const BoardListItem = styled.li`
   align-items: center;
   padding: ${theme.spacing.large}px;
   margin-bottom: ${theme.spacing.small}px;
-  border: 1px solid ${theme.colors.gray[5]};
+  border: 1px solid ${theme.colors.elements.lineAndBorders};
   border-radius: ${theme.spacing.xsmall}px;
   transition: box-shadow ${ANIMATION_DURATION}ms ease-in-out;
   transition: border ${ANIMATION_DURATION}ms ease-in-out;

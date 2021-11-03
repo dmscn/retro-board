@@ -15,6 +15,7 @@ const ButtonsRow = styled.div`
 
 export default function AddLabelModal({ onClose, onSubmit }) {
   const inputRef = React.useRef()
+  const [labelName, setLabelName] = React.useEffect('')
 
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
@@ -29,7 +30,13 @@ export default function AddLabelModal({ onClose, onSubmit }) {
     <Modal onClose={onClose}>
       <Text.H2 variant="primary">Criar categoria</Text.H2>
       <Content>
-        <Input ref={inputRef} label="Nome da categoria" full />
+        <Input
+          ref={inputRef}
+          value={labelName}
+          onChange={e => setLabelName(e.target.value)}
+          label="Nome da categoria"
+          full
+        />
       </Content>
       <ButtonsRow>
         <Button.Text onClick={onClose}>Cancelar</Button.Text>
