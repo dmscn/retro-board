@@ -25,6 +25,7 @@ const LogoWrapper = styled.span`
   align-items: center;
   margin-left: ${theme.spacing.small}px;
 `
+
 const NavBar = () => {
   const history = useHistory()
   const {
