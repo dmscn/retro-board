@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme, Text, Button } from '@gympass/yoga'
+import tokens from '@gympass/yoga-tokens'
 import { PlusCircle } from 'react-feather'
 import Card from './Card'
 import AddCardModal from './AddCardModal'
@@ -16,7 +17,7 @@ const ANIMATION_DURATION = 250
 const graySpacerStyle = css`
   box-sizing: border-box;
   padding: ${theme.spacing.small}px;
-  background-color: ${theme.colors.gray[1]};
+  background-color: ${theme.colors.elements.backgroundAndDisabled};
   margin-bottom: ${theme.spacing.small}px;
   border-radius: ${theme.spacing.xxsmall}px;
 `
@@ -92,8 +93,8 @@ export default function BoardColumn({ active }) {
               <Card />
             </CardProvider>
           ))}
-          <Button.Text inverted onClick={toggleModal}>
-            <PlusCircle />
+          <Button.Text onClick={toggleModal}>
+            <PlusCircle color={tokens.colors.clear} />
           </Button.Text>
         </Content>
       </Scrollbar>

@@ -13,7 +13,7 @@ const PageWrapper = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${theme.colors.tertiary[0]};
+  background-color: ${theme.colors.energy[0]};
 `
 
 const Title = styled(Text.H2)`
@@ -32,7 +32,17 @@ const ButtonContent = styled.div`
     margin-left: ${theme.spacing.medium}px;
   }
 `
-
+const LGPD_text =
+  'Ao utilizar nossos serviços, você entende que coletaremos e usaremos suas informações pessoais nas formas descritas nesta Política, sob as normas de Proteção de Dados (LGPD, Lei Federal 13.709/2018), das disposições consumeristas da Lei Federal 8078/1990 e as demais normas do ordenamento jurídico brasileiro aplicáveis.'
+const FixedBotton = styled(Row)`
+  display: flex;
+  background-color: ${theme.colors.attention};
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 16px 64px;
+`
 export default function Login() {
   const history = useHistory()
   const location = useLocation()
@@ -53,13 +63,18 @@ export default function Login() {
               width={300}
             />
             <Title variant="primary">Faça seu login</Title>
-            <Button.Outline inverted full onClick={logUser}>
+            <Button.Outline full onClick={logUser}>
               <ButtonContent>
                 <GoogleLogo height={20} width={20} />{' '}
                 <span className="text">Login Google</span>
               </ButtonContent>
             </Button.Outline>
           </Col>
+        </Row>
+        <Row>
+          <FixedBotton>
+            <Text.Regular>{LGPD_text}</Text.Regular>
+          </FixedBotton>
         </Row>
       </Container>
     </PageWrapper>

@@ -8,7 +8,8 @@ export default styled(({ picture, ...props }) => (
   display: flex;
   height: ${theme.spacing.xxlarge}px;
   width: ${theme.spacing.xxlarge}px;
-  border: 3px solid ${props => props?.color || theme.colors.white(props)};
+  border: 2px solid
+    ${props => props?.color || theme.colors.elements.lineAndBorders(props)};
   border-radius: 100%;
   cursor: pointer;
 `

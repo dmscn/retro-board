@@ -19,14 +19,14 @@ const AddNewColumn = styled.div`
   align-items: center;
   height: 100%;
   width: calc(${theme.spacing.huge}px * 5);
-  color: ${theme.colors.gray[2]};
+  color: ${theme.colors.elements.selectionAndIcons};
   cursor: pointer;
 
   transition-property: color;
   transition-duration: 300ms;
 
   &:hover {
-    color: ${theme.colors.primary[3]};
+    color: ${theme.colors.primary};
   }
 `
 

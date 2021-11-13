@@ -9,7 +9,7 @@ const Wrapper = styled.section`
   display: flex;
   width: 100%;
   padding: ${theme.spacing.xxsmall}px ${theme.spacing.medium}px;
-  background-color: ${theme.colors.gray[1]};
+  background-color: ${theme.colors.elements.backgroundAndDisabled};
 
   .user-avatar {
     margin-right: ${theme.spacing.xxsmall}px;
@@ -24,7 +24,7 @@ export default function OnlineUsersRow({ onlineUsers = [] }) {
           key={user.id}
           className="user-avatar"
           picture={user.photoURL}
-          color={tokens.colors.positive[0]}
+          color={tokens.colors.success}
         />
       ))}
     </Wrapper>

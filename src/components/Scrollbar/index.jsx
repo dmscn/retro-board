@@ -5,7 +5,7 @@ import { theme } from '@gympass/yoga'
 const customScrollbarCss = css`
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px
-      ${props => hexToRgb(theme.colors.dark(props), 0.5)};
+      ${props => hexToRgb(theme.colors.stamina(props), 0.5)};
     background-color: ${theme.colors.white};
   }
 

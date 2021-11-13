@@ -10,7 +10,7 @@ import Avatar from '@components/Avatar'
 
 const NavWrapper = styled.nav`
   box-sizing: border-box;
-  background: ${theme.colors.primary[3]};
+  background: ${theme.colors.primary};
   width: 100%;
   display: flex;
   align-items: center;

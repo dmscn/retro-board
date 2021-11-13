@@ -23,7 +23,7 @@ const BackgroundLayer = styled.section`
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: ${props => hexToRgb(theme.colors.dark(props), 0.5)};
+  background-color: ${props => hexToRgb(theme.colors.stamina(props), 0.5)};
   z-index: 1000;
 `
 const ModalCard = styled.main`
