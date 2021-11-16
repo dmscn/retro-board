@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { theme, Text, Tag, Input } from '@gympass/yoga'
+import { theme, Text, Tag, Input, Box } from '@gympass/yoga'
 import {
   MessageCircle,
   ThumbsUp,
@@ -55,7 +55,6 @@ const CounterText = styled(Text.Small)`
 `
 
 const Label = styled(Tag)`
-  margin-right: ${theme.spacing.xsmall}px;
   cursor: pointer;
 `
 
@@ -69,18 +68,6 @@ const IconWrapper = styled.div`
 
   &:not(:last-child) {
     margin-right: ${theme.spacing.small}px;
-  }
-`
-
-const LabelRow = styled.div`
-  display: inline-flex;
-  align-items: center;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-bottom: ${theme.spacing.small}px;
-
-  &::-webkit-scrollbar {
-    display: none;
   }
 `
 
@@ -195,7 +182,7 @@ export default function Card() {
         />
       </TitleRow>
       <Description>{description}</Description>
-      <LabelRow>
+      <Box display="flex" flexWrap="wrap" gap="xxsmall" alignItems="center">
         {labels.map(label => (
           <Label key={label} icon={false} variant="secondary">
             {label}
@@ -207,7 +194,7 @@ export default function Card() {
             <Text.Small variant="primary">adicionar categoria</Text.Small>
           </ButtonContent>
         </AddLabel>
-      </LabelRow>
+      </Box>
 
       <ActionRow>
         <IconWrapper onClick={like} liked={liked}>
