@@ -30,7 +30,7 @@ export default function AddColumnModal({ onClose }) {
 
   return (
     <Modal onClose={onClose}>
-      <Text.H2 variant="primary">Criar nova coluna</Text.H2>
+      <Text.H4>Criar nova coluna</Text.H4>
       <Content>
         <Input
           ref={inputRef}
@@ -41,8 +41,12 @@ export default function AddColumnModal({ onClose }) {
         />
       </Content>
       <ButtonsRow>
-        <Button.Text onClick={onClose}>Cancelar</Button.Text>
-        <Button onClick={handleOnSubmit}>Criar</Button>
+        <Button.Text onClick={onClose} small>
+          Cancelar
+        </Button.Text>
+        <Button onClick={handleOnSubmit} small>
+          Criar
+        </Button>
       </ButtonsRow>
     </Modal>
   )
