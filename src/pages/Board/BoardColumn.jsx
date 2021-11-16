@@ -79,8 +79,12 @@ export default function BoardColumn({ active }) {
         <Box display="flex" justifyContent="center">
           <Text.Medium numberOfLines={1}>{column.title}</Text.Medium>
         </Box>
-        <IconWrapper className="delete-icon" onClick={() => removeColumn(slug)}>
-          <RemoveIcon height={18} width={18} />
+        <IconWrapper className="delete-icon">
+          <RemoveIcon
+            height={18}
+            width={18}
+            onClick={() => removeColumn(slug)}
+          />
         </IconWrapper>
       </Header>
 
