@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { theme, Text, Button } from '@gympass/yoga'
+import { theme, Text, Button, Box } from '@gympass/yoga'
 import tokens from '@gympass/yoga-tokens'
 import { PlusCircle } from 'react-feather'
 import Card from './Card'
@@ -46,10 +46,6 @@ const Header = styled.header`
   }
 `
 
-const HeaderText = styled(Text.H4)`
-  text-align: center;
-`
-
 const IconWrapper = styled.span`
   position: absolute;
   right: ${theme.spacing.medium}px;
@@ -80,7 +76,9 @@ export default function BoardColumn({ active }) {
   return (
     <ColumnWrapper>
       <Header active={active}>
-        <HeaderText>{column.title}</HeaderText>
+        <Box display="flex" justifyContent="center">
+          <Text.Medium numberOfLines={1}>{column.title}</Text.Medium>
+        </Box>
         <IconWrapper className="delete-icon" onClick={() => removeColumn(slug)}>
           <RemoveIcon height={18} width={18} />
         </IconWrapper>
