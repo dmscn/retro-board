@@ -1,7 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { theme, Text, Input, Button } from '@gympass/yoga'
+import { theme, Text, Input, Button, Box } from '@gympass/yoga'
+import { Edit } from '@gympass/yoga-icons'
 import { BoardProvider } from '@contexts/board'
 import {
   subscribeToBoard,
@@ -10,15 +11,12 @@ import {
   unfollowBoard,
   getOnlineUsersInBoard,
 } from '@services/firebase'
-import { Edit2 } from 'react-feather'
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import ColumnsList from './ColumnsList'
 import OnlineUsersRow from './OnlineUsersRow'
 import useUnload from '@hooks/useUnload'
-
-const ANIMATION_DURATION = 200
 
 const ScrollbarWithPadding = styled(Scrollbar)`
   padding: ${theme.spacing.medium}px;
@@ -29,27 +27,6 @@ const Header = styled.header`
   align-items: center;
   margin-top: ${theme.spacing.medium}px;
   padding: 0 ${theme.spacing.large}px;
-`
-
-const EditWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: ${theme.spacing.small}px;
-  margin-left: ${theme.spacing.medium}px;
-  border-radius: 100%;
-  overflow: hidden;
-  background-color: 'transparent';
-  color: ${theme.colors.stamina};
-  cursor: pointer;
-  transition-duration: ${ANIMATION_DURATION}ms;
-  transition-property: color, background-color;
-  transition-timing-function: ease-in-out;
-
-  &:hover {
-    background-color: ${theme.colors.primary[0]};
-    color: ${theme.colors.primary[3]};
-  }
 `
 
 const CustomButton = styled(Button)`
@@ -73,12 +50,10 @@ const EditBoard = ({ initialValue, onSubmit }) => {
 }
 
 const DisplayBoardName = ({ boardName, onEditButtonClick }) => (
-  <React.Fragment>
-    <Text.H1>{boardName}</Text.H1>
-    <EditWrapper onClick={onEditButtonClick}>
-      <Edit2 width={20} height={20} />
-    </EditWrapper>
-  </React.Fragment>
+  <Box display="flex" alignItems="center">
+    <Text.H3>{boardName}</Text.H3>
+    <Button.Icon icon={Edit} onClick={onEditButtonClick} inverted />
+  </Box>
 )
 
 export default function Board() {

@@ -35,7 +35,7 @@ export default function AddCardModal({ onCancel, onSubmit }) {
   return (
     <Modal onClose={onCancel}>
       <Field>
-        <Text.H2 variant="primary">Criar novo cartão</Text.H2>
+        <Text.H4 variant="primary">Criar novo cartão</Text.H4>
       </Field>
       <Field>
         <Input
@@ -56,8 +56,12 @@ export default function AddCardModal({ onCancel, onSubmit }) {
         />
       </Field>
       <ButtonsRow>
-        <Button.Text onClick={onCancel}>Cancelar</Button.Text>
-        <Button onClick={handleSubmit}>Criar</Button>
+        <Button.Text onClick={onCancel} small>
+          Cancelar
+        </Button.Text>
+        <Button onClick={handleSubmit} small>
+          Criar
+        </Button>
       </ButtonsRow>
     </Modal>
   )

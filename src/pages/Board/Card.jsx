@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { theme, Text, Tag, Input } from '@gympass/yoga'
+import { theme, Text, Tag, Input, Box } from '@gympass/yoga'
 import {
   MessageCircle,
   ThumbsUp,
@@ -51,36 +51,23 @@ const ActionRow = styled.footer`
 const CounterText = styled(Text.Small)`
   ${({ liked, ...props }) =>
     liked && `color: ${theme.colors.secondary(props)};`}
-  margin-left: ${theme.spacing.xsmall}px;
+  margin-left: ${theme.spacing.xxsmall}px;
 `
 
 const Label = styled(Tag)`
-  margin-right: ${theme.spacing.xsmall}px;
   cursor: pointer;
 `
 
 const IconWrapper = styled.div`
   display: flex;
   align-items: flex-end;
-  padding: ${theme.spacing.xxsmall}px;
+  padding: ${theme.spacing.xxsmall}px ${theme.spacing.xxxsmall}px;
   cursor: pointer;
   ${({ liked, ...props }) =>
     liked && `color: ${theme.colors.secondary(props)};`}
 
   &:not(:last-child) {
-    margin-right: ${theme.spacing.small}px;
-  }
-`
-
-const LabelRow = styled.div`
-  display: inline-flex;
-  align-items: center;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-bottom: ${theme.spacing.small}px;
-
-  &::-webkit-scrollbar {
-    display: none;
+    margin-right: ${theme.spacing.xxxsmall}px;
   }
 `
 
@@ -97,11 +84,11 @@ const TitleRow = styled.div`
   align-items: center;
 `
 
-const Title = styled(Text.H3)`
-  margin: ${theme.spacing.xsmall}px 0;
+const Title = styled(Text.H5)`
+  margin: ${theme.spacing.xxxsmall}px 0;
 `
-const Description = styled(Text.Small)`
-  margin-bottom: ${theme.spacing.medium}px;
+const Description = styled(Text.Tiny)`
+  margin-bottom: ${theme.spacing.small}px;
 `
 
 const CommentListItem = styled.li`
@@ -132,7 +119,7 @@ const AddLabel = styled.div`
   cursor: pointer;
 
   .icon {
-    margin-right: ${theme.spacing.xxsmall}px;
+    margin-right: ${theme.spacing.xxxsmall}px;
   }
 `
 
@@ -195,27 +182,27 @@ export default function Card() {
         />
       </TitleRow>
       <Description>{description}</Description>
-      <LabelRow>
+      <Box display="flex" flexWrap="wrap" gap="xxxsmall" alignItems="center">
         {labels.map(label => (
-          <Label key={label} icon={false} variant="secondary">
+          <Label key={label} icon={false} small>
             {label}
           </Label>
         ))}
         <AddLabel onClick={toggleModal}>
           <ButtonContent>
-            <Plus className="icon" width={14} />
-            <Text.Small variant="primary">adicionar categoria</Text.Small>
+            <Plus className="icon" width={16} />
+            <Text.Small>adicionar categoria</Text.Small>
           </ButtonContent>
         </AddLabel>
-      </LabelRow>
+      </Box>
 
       <ActionRow>
         <IconWrapper onClick={like} liked={liked}>
-          <ThumbsUp />
+          <ThumbsUp width={18} />
           <CounterText liked={liked}>{likedBy.length}</CounterText>
         </IconWrapper>
         <IconWrapper>
-          <MessageCircle />
+          <MessageCircle width={18} />
           <CounterText>{comments.length}</CounterText>
         </IconWrapper>
       </ActionRow>

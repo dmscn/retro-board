@@ -153,9 +153,9 @@ export const removeColumnFromBoard = (boardSlug, columnSlug) =>
  * Board methods
  */
 const defaultColumns = [
-  { title: 'Went bad' },
-  { title: 'Went well' },
-  { title: 'Action points' },
+  { title: 'Negativo' },
+  { title: 'Positivo' },
+  { title: 'Pontos de ação' },
 ]
 export const subscribeUserBoards = handler => {
   const UserBoardsCollections = BoardsCollection.where(
