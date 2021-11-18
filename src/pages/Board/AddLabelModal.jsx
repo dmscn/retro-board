@@ -19,8 +19,6 @@ export default function AddLabelModal({ onClose, onSubmit }) {
   const [labelName, setLabelName] = React.useState('')
   const { labels } = useBoard()
 
-  console.log(labels)
-
   React.useEffect(() => {
     inputRef.current && inputRef.current.focus()
   }, [])
@@ -33,7 +31,7 @@ export default function AddLabelModal({ onClose, onSubmit }) {
 
   return (
     <Modal onClose={onClose}>
-      <Box maxWidth={300}>
+      <Box maxWidth={400}>
         <Text.H4 variant="primary">Criar categoria</Text.H4>
         <Content>
           <Input
@@ -67,7 +65,7 @@ export default function AddLabelModal({ onClose, onSubmit }) {
           <Button.Text onClick={onClose} small>
             Cancelar
           </Button.Text>
-          <Button onClick={handleSubmit} small>
+          <Button onClick={() => handleSubmit()} small>
             Criar
           </Button>
         </ButtonsRow>
