@@ -184,7 +184,7 @@ export default function Card() {
       <Description>{description}</Description>
       <Box display="flex" flexWrap="wrap" gap="xxxsmall" alignItems="center">
         {labels.map(label => (
-          <Label key={label} icon={false} small>
+          <Label key={label} icon={false}>
             {label}
           </Label>
         ))}
