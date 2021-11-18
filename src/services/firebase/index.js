@@ -22,6 +22,7 @@ const db = firebase.firestore()
 const BOARDS_COLLECTION = 'boards'
 const USERS_COLLECTION = 'users'
 const COLUMNS_COLLECTION = 'columns'
+const LABELS_COLLECTION = 'labels'
 const CARDS_COLLECTION = 'cards'
 
 const BoardsCollection = db.collection(BOARDS_COLLECTION)
@@ -71,6 +72,14 @@ export const subscribeColumnCards = (boardSlug, columnSlug, handler) => {
   return subscribeToCollection(CardsCollection, handler)
 }
 
+export const subscribeBoardLabels = (boardSlug, handler) => {
+  const ColumnCollection = BoardsCollection.doc(boardSlug)
+    .collection(LABELS_COLLECTION)
+    .orderBy('createdAt')
+
+  return subscribeToCollection(ColumnCollection, handler)
+}
+
 export const addNewCardToBoardColumn = (boardSlug, columnSlug, card) =>
   BoardsCollection.doc(boardSlug)
     .collection(COLUMNS_COLLECTION)
@@ -104,10 +113,20 @@ export const updateCardFromBoardColumn = (
     .doc(cardSlug)
     .update(newData)
 
-export const addNewCardLabel = (boardSlug, columnSlug, cardSlug, label) =>
+export const addNewLabelToBoard = (boardSlug, label) =>
+  BoardsCollection.doc(boardSlug)
+    .collection(LABELS_COLLECTION)
+    .add({
+      label,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+
+export const addNewCardLabel = (boardSlug, columnSlug, cardSlug, label) => {
   updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
     labels: firebase.firestore.FieldValue.arrayUnion(label),
   })
+  addNewLabelToBoard(boardSlug, label)
+}
 
 export const addNewCardComment = (boardSlug, columnSlug, cardSlug, comment) =>
   updateCardFromBoardColumn(boardSlug, columnSlug, cardSlug, {
@@ -217,10 +236,8 @@ export const addNewBoard = async name => {
   }
 
   const { id } = await BoardsCollection.add(board)
+  defaultColumns.forEach(column => addNewColumnToBoard(id, column))
 
-  const addColumn = column => addNewColumnToBoard(id, column)
-
-  defaultColumns.forEach(addColumn)
   return id
 }
 
