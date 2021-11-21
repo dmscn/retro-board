@@ -7,7 +7,7 @@ export default function PDFPreview() {
   const { state } = useLocation()
 
   const [instance] = usePDF({
-    document: <PDFExport boardName={state?.boardName} />,
+    document: <PDFExport name={state?.boardName} slug={state?.slug} />,
   })
 
   return (

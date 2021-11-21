@@ -20,13 +20,13 @@ const Wrapper = styled.section`
   }
 `
 
-export default function OnlineUsersRow({ onlineUsers = [], boardName }) {
+export default function OnlineUsersRow({ onlineUsers = [], boardName, slug }) {
   const [isShareDialogOpen, setIsShareDialogOpen] = React.useState(false)
   const toggleShareDialog = () => setIsShareDialogOpen(s => !s)
   const history = useHistory()
 
   const openPDFPreviewInNewTab = () =>
-    history.push({ pathname: '/export/preview', state: { boardName } })
+    history.push({ pathname: '/export/preview', state: { boardName, slug } })
 
   return (
     <Wrapper>

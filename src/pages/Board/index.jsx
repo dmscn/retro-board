@@ -90,7 +90,11 @@ export default function Board() {
     <Page>
       {board && (
         <>
-          <OnlineUsersRow onlineUsers={onlineUsers} boardName={board.name} />
+          <OnlineUsersRow
+            onlineUsers={onlineUsers}
+            boardName={board.name}
+            slug={slug}
+          />
           <Header>
             {isEditing ? (
               <EditBoard initialValue={board.name} onSubmit={updateBoardName} />
