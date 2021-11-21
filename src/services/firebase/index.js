@@ -116,9 +116,17 @@ export const updateCardFromBoardColumn = (
 export const addNewLabelToBoard = (boardSlug, label) =>
   BoardsCollection.doc(boardSlug)
     .collection(LABELS_COLLECTION)
-    .add({
-      label,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    .where('label', '==', label)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        BoardsCollection.doc(boardSlug)
+          .collection(LABELS_COLLECTION)
+          .add({
+            label,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+      }
     })
 
 export const addNewCardLabel = (boardSlug, columnSlug, cardSlug, label) => {

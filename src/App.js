@@ -4,13 +4,13 @@ import { createTheme, ThemeProvider, FontLoader } from '@gympass/yoga'
 import GlobalStyled from './globalStyles'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-// import theme from '@assets/style/theme'
 import { AuthProvider, useAuth } from '@contexts/auth'
 
 import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
 import Profile from '@pages/Profile'
 import Login from '@pages/Login'
+import PDFPreview from '@pages/PDFPreview'
 
 const theme = createTheme(tokens => ({
   colors: {
@@ -54,6 +54,9 @@ function App() {
             </AuthProtectecdRoute>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/export/preview">
+              <PDFPreview />
             </Route>
             <Route path="/">
               <Welcome />

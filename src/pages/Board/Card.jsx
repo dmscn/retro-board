@@ -142,12 +142,12 @@ const CommentsList = ({ comments }) => {
           {displayAll ? (
             <React.Fragment>
               <ChevronUp width={20} />
-              <Text.H4 variant="primary">ver menos</Text.H4>
+              <Text>ver menos</Text>
             </React.Fragment>
           ) : (
             <React.Fragment>
               <ChevronDown width={20} />
-              <Text.H4 variant="primary">ver mais</Text.H4>
+              <Text>ver mais</Text>
             </React.Fragment>
           )}
         </SeeMoreComments>

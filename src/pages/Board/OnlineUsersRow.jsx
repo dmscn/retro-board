@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { theme, Button, Box } from '@gympass/yoga'
-import { ShareAndroid } from '@gympass/yoga-icons'
+import { ShareAndroid, Download } from '@gympass/yoga-icons'
 import tokens from '@gympass/yoga-tokens'
 
 import Avatar from '@components/Avatar'
 import ShareDialog from './ShareDialog'
+import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.section`
   box-sizing: border-box;
@@ -19,9 +20,13 @@ const Wrapper = styled.section`
   }
 `
 
-export default function OnlineUsersRow({ onlineUsers = [] }) {
+export default function OnlineUsersRow({ onlineUsers = [], boardName, slug }) {
   const [isShareDialogOpen, setIsShareDialogOpen] = React.useState(false)
   const toggleShareDialog = () => setIsShareDialogOpen(s => !s)
+  const history = useHistory()
+
+  const openPDFPreviewInNewTab = () =>
+    history.push({ pathname: '/export/preview', state: { boardName, slug } })
 
   return (
     <Wrapper>
@@ -39,8 +44,14 @@ export default function OnlineUsersRow({ onlineUsers = [] }) {
         alignItems="center"
         justifyContent="flex-end"
         margin-left={tokens.spacing.xxxsmall}
+        gap="xxsmall"
       >
-        <Button.Icon icon={ShareAndroid} small onClick={toggleShareDialog} />
+        <Button icon={Download} small onClick={openPDFPreviewInNewTab}>
+          Exportar PDF
+        </Button>
+        <Button icon={ShareAndroid} small onClick={toggleShareDialog}>
+          Compartilhar
+        </Button>
       </Box>
       {isShareDialogOpen && <ShareDialog onClose={toggleShareDialog} />}
     </Wrapper>
