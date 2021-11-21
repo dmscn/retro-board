@@ -8,6 +8,9 @@ import LoginIllustration from '@assets/img/illustrations/svg/login.svg'
 
 import { useAuth } from '@contexts/auth'
 
+const LGPD_COMPLIENCE_TEXT =
+  'Ao utilizar nossos serviços, você entende que coletaremos e usaremos suas informações pessoais nas formas descritas nesta Política, sob as normas de Proteção de Dados (LGPD, Lei Federal 13.709/2018), das disposições consumeristas da Lei Federal 8078/1990 e as demais normas do ordenamento jurídico brasileiro aplicáveis.'
+
 const PageWrapper = styled.main`
   height: 100%;
   display: flex;
@@ -32,8 +35,7 @@ const ButtonContent = styled.div`
     margin-left: ${theme.spacing.medium}px;
   }
 `
-const LGPD_text =
-  'Ao utilizar nossos serviços, você entende que coletaremos e usaremos suas informações pessoais nas formas descritas nesta Política, sob as normas de Proteção de Dados (LGPD, Lei Federal 13.709/2018), das disposições consumeristas da Lei Federal 8078/1990 e as demais normas do ordenamento jurídico brasileiro aplicáveis.'
+
 const FixedBotton = styled(Row)`
   display: flex;
   background-color: ${theme.colors.attention};
@@ -73,7 +75,7 @@ export default function Login() {
         </Row>
         <Row>
           <FixedBotton>
-            <Text.Regular>{LGPD_text}</Text.Regular>
+            <Text.Regular>{LGPD_COMPLIENCE_TEXT}</Text.Regular>
           </FixedBotton>
         </Row>
       </Container>
