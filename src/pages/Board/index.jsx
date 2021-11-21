@@ -88,18 +88,20 @@ export default function Board() {
 
   return (
     <Page>
-      <OnlineUsersRow onlineUsers={onlineUsers} />
       {board && (
-        <Header>
-          {isEditing ? (
-            <EditBoard initialValue={board.name} onSubmit={updateBoardName} />
-          ) : (
-            <DisplayBoardName
-              boardName={board.name}
-              onEditButtonClick={() => setIsEditing(true)}
-            />
-          )}
-        </Header>
+        <>
+          <OnlineUsersRow onlineUsers={onlineUsers} boardName={board.name} />
+          <Header>
+            {isEditing ? (
+              <EditBoard initialValue={board.name} onSubmit={updateBoardName} />
+            ) : (
+              <DisplayBoardName
+                boardName={board.name}
+                onEditButtonClick={() => setIsEditing(true)}
+              />
+            )}
+          </Header>
+        </>
       )}
       <BoardProvider slug={slug}>
         <ScrollbarWithPadding horizontal>
