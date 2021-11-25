@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Container, Button, Text } from '@gympass/yoga'
+import { Container, Button, Text, Box } from '@gympass/yoga'
 import WelcomeIllustration from '@assets/img/illustrations/svg/welcome.svg'
 import { addNewBoard } from '@services/firebase'
 import * as Styled from './styled'
@@ -19,34 +19,44 @@ export default function Welcome() {
   }
 
   return (
-    <Styled.ViewportLane>
-      <Container>
-        <Styled.CenteredRow>
-          <Text.H1 variant="primary">Gestão fácil das suas retros.</Text.H1>
-        </Styled.CenteredRow>
-        <Styled.CenteredRow>
+    <Box height="100%" display="flex" flexDirection="column" padding="medium">
+      <Container fluid>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Box marginHorizontal="small" marginVertical="xxlarge">
+            <Text.H1 variant="primary" style={{ textAlign: 'center' }}>
+              Gestão fácil das suas retros.
+            </Text.H1>
+          </Box>
           <Button onClick={createNewBoard}>Experimentar</Button>
-        </Styled.CenteredRow>
-        <Styled.IllustrationWrapper>
-          <WelcomeIllustration
-            preserveAspectRatio="xMidYMin slice"
-            height={300}
-            width={300}
-            viewport="0 0 300 300"
-          />
-        </Styled.IllustrationWrapper>
-        <Styled.CenteredRow>
+          <Box margin="medium">
+            <WelcomeIllustration
+              preserveAspectRatio="xMidYMin slice"
+              height={300}
+              width={300}
+              viewport="0 0 300 300"
+            />
+          </Box>
           <Text.H3 variant="primary">ou</Text.H3>
-        </Styled.CenteredRow>
-        <Styled.ButtonsRow>
-          <Styled.FixedWidthButton className="with-margin" onClick={goToLogin}>
-            Login
-          </Styled.FixedWidthButton>
-          <Styled.FixedWidthButton onClick={goToLogin}>
-            Registrar
-          </Styled.FixedWidthButton>
-        </Styled.ButtonsRow>
+          <Box
+            display="flex"
+            maxWidth={400}
+            justifyContent="space-around"
+            margin="medium"
+          >
+            <Box marginRight="medium">
+              <Styled.FixedWidthButton
+                className="with-margin"
+                onClick={goToLogin}
+              >
+                Login
+              </Styled.FixedWidthButton>
+            </Box>
+            <Styled.FixedWidthButton onClick={goToLogin}>
+              Registrar
+            </Styled.FixedWidthButton>
+          </Box>
+        </Box>
       </Container>
-    </Styled.ViewportLane>
+    </Box>
   )
 }

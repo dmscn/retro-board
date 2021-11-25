@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { Text, Container, Row, Col, Button, theme } from '@gympass/yoga'
+import { Text, Container, Row, Col, Box, Button, theme } from '@gympass/yoga'
 
 import GoogleLogo from '@assets/img/logos/google.svg'
 import LoginIllustration from '@assets/img/illustrations/svg/login.svg'
@@ -36,13 +36,13 @@ const ButtonContent = styled.div`
   }
 `
 
-const FixedBotton = styled(Row)`
-  display: flex;
+const FixedBotton = styled.footer`
+  height: auto;
   background-color: ${theme.colors.attention};
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
   right: 0;
-  left: 0;
+  left: 0; */
   padding: 16px 64px;
 `
 export default function Login() {
@@ -56,29 +56,47 @@ export default function Login() {
 
   return (
     <PageWrapper>
-      <Container>
-        <Row>
-          <Col xxs={12} lg={5} lg-start={5}>
-            <LoginIllustration
-              preserveAspectRatio="xMidYMid meet"
-              height={300}
-              width={300}
-            />
-            <Title variant="primary">Faça seu login</Title>
-            <Button.Outline full onClick={logUser}>
-              <ButtonContent>
-                <GoogleLogo height={20} width={20} />{' '}
-                <span className="text">Login Google</span>
-              </ButtonContent>
-            </Button.Outline>
-          </Col>
-        </Row>
-        <Row>
+      <Box display="flex" flexDirection="column" height="100%">
+        <Container fluid style={{ height: '100%' }}>
+          <Row>
+            <Col xxs={12} lg={5} lg-start={5}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                flexGrow={1}
+                justifyContent="center"
+                alignItems="center"
+              >
+                <LoginIllustration
+                  preserveAspectRatio="xMidYMid meet"
+                  height={300}
+                  width={300}
+                />
+                <Title variant="primary">Faça seu login</Title>
+                <Button.Outline onClick={logUser}>
+                  <ButtonContent>
+                    <GoogleLogo height={20} width={20} />{' '}
+                    <span className="text">Login Google</span>
+                  </ButtonContent>
+                </Button.Outline>
+              </Box>
+            </Col>
+          </Row>
+          {/* <Box display="flex" flexGrow={1} backgroundColor="stamina" width="100%"> */}
+
+          {/* </Box> */}
+        </Container>
+        <Box
+          display="flex"
+          alignItems="flex-end"
+          height="100%"
+          marginTop="small"
+        >
           <FixedBotton>
             <Text.Regular>{LGPD_COMPLIENCE_TEXT}</Text.Regular>
           </FixedBotton>
-        </Row>
-      </Container>
+        </Box>
+      </Box>
     </PageWrapper>
   )
 }

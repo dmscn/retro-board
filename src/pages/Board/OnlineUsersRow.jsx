@@ -11,6 +11,8 @@ import { useHistory } from 'react-router-dom'
 const Wrapper = styled.section`
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
+  gap: ${theme.spacing.medium}px;
   width: 100%;
   padding: ${theme.spacing.xxsmall}px ${theme.spacing.medium}px;
   background-color: ${theme.colors.elements.backgroundAndDisabled};
@@ -40,7 +42,7 @@ export default function OnlineUsersRow({ onlineUsers = [], boardName, slug }) {
       ))}
       <Box
         display="flex"
-        width="100%"
+        flexGrow={1}
         alignItems="center"
         justifyContent="flex-end"
         margin-left={tokens.spacing.xxxsmall}

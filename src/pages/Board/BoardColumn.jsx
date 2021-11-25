@@ -25,7 +25,9 @@ const graySpacerStyle = css`
 const ColumnWrapper = styled.article`
   display: flex;
   flex-direction: column;
+  min-height: 568px;
   height: 100%;
+  max-width: 320px;
   width: calc(${theme.spacing.huge}px * 6);
   margin-right: ${theme.spacing.medium}px;
 `
