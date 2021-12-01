@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
-import { theme } from '@gympass/yoga'
+import { theme, Text, Box } from '@gympass/yoga'
 
 import RetroBoardLogo from '@assets/img/logos/retro-board.svg'
 import { useAuth } from '@contexts/auth'
@@ -24,6 +24,7 @@ const LogoWrapper = styled.span`
   justify-content: center;
   align-items: center;
   margin-left: ${theme.spacing.small}px;
+  cursor: pointer;
 `
 
 const NavBar = () => {
@@ -37,9 +38,19 @@ const NavBar = () => {
   return (
     <NavWrapper>
       <LogoWrapper>
-        <RetroBoardLogo height={22} />
+        <RetroBoardLogo height={22} onClick={goToProfile} />
       </LogoWrapper>
-      <Avatar picture={photoURL} onClick={goToProfile} />
+      <Box
+        display="flex"
+        alignItems="center"
+        gap="xsmall"
+        paddingHorizontal="xxsmall"
+        style={{ cursor: 'pointer' }}
+        onClick={goToProfile}
+      >
+        <Text inverted>Perfil</Text>
+        <Avatar picture={photoURL} />
+      </Box>
     </NavWrapper>
   )
 }
