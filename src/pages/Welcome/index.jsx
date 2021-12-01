@@ -2,32 +2,32 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, Button, Text, Box } from '@gympass/yoga'
 import WelcomeIllustration from '@assets/img/illustrations/svg/welcome.svg'
-import { addNewBoard } from '@services/firebase'
-import * as Styled from './styled'
+import Page from '@components/Page'
+import GoogleLogo from '@assets/img/logos/google.svg'
 import { useAuth } from '@contexts/auth'
+
+const LGPD_COMPLIENCE_TEXT =
+  'Ao utilizar nossos serviços, você entende que coletaremos e usaremos suas informações pessoais nas formas descritas nesta Política, sob as normas de Proteção de Dados (LGPD, Lei Federal 13.709/2018), das disposições consumeristas da Lei Federal 8078/1990 e as demais normas do ordenamento jurídico brasileiro aplicáveis.'
 
 export default function Welcome() {
   const history = useHistory()
-  const { user } = useAuth()
 
-  const goToLogin = () => history.push('/login')
+  const { user, googleSignIn } = useAuth()
 
-  const createNewBoard = async () => {
-    if (!user) goToLogin()
-    const id = await addNewBoard('Untitled')
-    history.push(`/board/${id}`)
+  const logUser = async () => {
+    if (!user) await googleSignIn()
+    history.replace('/profile')
   }
 
   return (
-    <Box height="100%" display="flex" flexDirection="column" padding="medium">
+    <Page inverted>
       <Container fluid>
         <Box display="flex" flexDirection="column" alignItems="center">
           <Box marginHorizontal="small" marginVertical="xxlarge">
-            <Text.H1 variant="primary" style={{ textAlign: 'center' }}>
+            <Text.H3 variant="primary" style={{ textAlign: 'center' }}>
               Gestão fácil das suas retros.
-            </Text.H1>
+            </Text.H3>
           </Box>
-          <Button onClick={createNewBoard}>Experimentar</Button>
           <Box margin="medium">
             <WelcomeIllustration
               preserveAspectRatio="xMidYMin slice"
@@ -36,27 +36,35 @@ export default function Welcome() {
               viewport="0 0 300 300"
             />
           </Box>
-          <Text.H3 variant="primary">ou</Text.H3>
           <Box
             display="flex"
             maxWidth={400}
             justifyContent="space-around"
             margin="medium"
           >
-            <Box marginRight="medium">
-              <Styled.FixedWidthButton
-                className="with-margin"
-                onClick={goToLogin}
+            <Button.Outline onClick={logUser}>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                gap="xsmall"
               >
-                Login
-              </Styled.FixedWidthButton>
-            </Box>
-            <Styled.FixedWidthButton onClick={goToLogin}>
-              Registrar
-            </Styled.FixedWidthButton>
+                <GoogleLogo height={20} width={20} />
+                <span className="text">Login Google</span>
+              </Box>
+            </Button.Outline>
           </Box>
         </Box>
       </Container>
-    </Box>
+      <Box display="flex" alignItems="flex-end" height="100%" marginTop="small">
+        <Box
+          bg="attention"
+          paddingVertical="large"
+          paddingHorizontal="xxxlarge"
+        >
+          <Text.Regular>{LGPD_COMPLIENCE_TEXT}</Text.Regular>
+        </Box>
+      </Box>
+    </Page>
   )
 }
