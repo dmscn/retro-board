@@ -9,10 +9,10 @@ const PageContainer = styled.section`
   flex-direction: column;
 `
 
-export default function Page({ children }) {
+export default function Page({ inverted, children }) {
   return (
     <PageContainer>
-      <NavBar />
+      <NavBar inverted={inverted} />
       {children}
     </PageContainer>
   )

@@ -3,14 +3,16 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { theme, Text, Box } from '@gympass/yoga'
 
-import RetroBoardLogo from '@assets/img/logos/retro-board.svg'
+import RetroBoardLogoWhite from '@assets/img/logos/retro-board-white.svg'
+import RetroBoardLogoBlack from '@assets/img/logos/retro-board-black.svg'
 import { useAuth } from '@contexts/auth'
 
 import Avatar from '@components/Avatar'
 
 const NavWrapper = styled.nav`
   box-sizing: border-box;
-  background: ${theme.colors.primary};
+  background: ${({ inverted }) =>
+    inverted ? theme.colors.white : theme.colors.primary};
   width: 100%;
   display: flex;
   align-items: center;
@@ -27,30 +29,35 @@ const LogoWrapper = styled.span`
   cursor: pointer;
 `
 
-const NavBar = () => {
+const NavBar = ({ inverted = false }) => {
   const history = useHistory()
-  const {
-    user: { photoURL },
-  } = useAuth()
+  const { user } = useAuth()
+  const photoURL = user?.photoURL
 
   const goToProfile = () => history.push('/profile')
 
   return (
-    <NavWrapper>
+    <NavWrapper inverted={inverted}>
       <LogoWrapper>
-        <RetroBoardLogo height={22} onClick={goToProfile} />
+        {inverted ? (
+          <RetroBoardLogoBlack height={22} onClick={goToProfile} />
+        ) : (
+          <RetroBoardLogoWhite height={22} onClick={goToProfile} />
+        )}
       </LogoWrapper>
-      <Box
-        display="flex"
-        alignItems="center"
-        gap="xsmall"
-        paddingHorizontal="xxsmall"
-        style={{ cursor: 'pointer' }}
-        onClick={goToProfile}
-      >
-        <Text inverted>Perfil</Text>
-        <Avatar picture={photoURL} />
-      </Box>
+      {!inverted && (
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="xsmall"
+          paddingHorizontal="xxsmall"
+          style={{ cursor: 'pointer' }}
+          onClick={goToProfile}
+        >
+          <Text inverted={!inverted}>Perfil</Text>
+          <Avatar picture={photoURL} />
+        </Box>
+      )}
     </NavWrapper>
   )
 }
