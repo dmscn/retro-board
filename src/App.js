@@ -9,7 +9,6 @@ import { AuthProvider, useAuth } from '@contexts/auth'
 import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
 import Profile from '@pages/Profile'
-import Login from '@pages/Login'
 import PDFPreview from '@pages/PDFPreview'
 
 const theme = createTheme(tokens => ({
@@ -26,13 +25,7 @@ const AuthProtectecdRoute = ({ children, ...rest }) => {
     initialized && (
       <Route
         {...rest}
-        render={({ location }) =>
-          user ? (
-            children
-          ) : (
-            <Redirect to={{ pathname: '/login', state: { from: location } }} />
-          )
-        }
+        render={() => (user ? children : <Redirect to={{ pathname: '/' }} />)}
       />
     )
   )
@@ -52,9 +45,6 @@ function App() {
             <AuthProtectecdRoute path="/profile">
               <Profile />
             </AuthProtectecdRoute>
-            <Route path="/login">
-              <Login />
-            </Route>
             <Route path="/export/preview">
               <PDFPreview />
             </Route>
