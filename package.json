@@ -11,8 +11,7 @@
     "format": "pretty-quick --pattern '**/*.*(js|jsx)' --verbose",
     "lint": "eslint \"**/*.{js,jsx}\" --quiet",
     "lint:fix": "npm run lint -- --fix ",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build"
   },
   "husky": {
     "hooks": {
@@ -68,7 +67,6 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.2",
     "file-loader": "^6.0.0",
-    "gh-pages": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.1",
     "lint-staged": "^10.2.11",
