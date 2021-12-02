@@ -75,7 +75,7 @@ const AddNewBoard = styled.section`
   }
 `
 
-const EmptyMessage = styled(Text.H2)`
+const EmptyMessage = styled(Text.H4)`
   margin: ${theme.spacing.large}px;
   text-align: center;
 `
@@ -151,6 +151,7 @@ export default function Profile() {
                   <Button.Outline
                     className="yoga-button"
                     onClick={createNewBoard}
+                    disabled={!boardName}
                   >
                     Criar
                   </Button.Outline>
@@ -160,19 +161,22 @@ export default function Profile() {
           </BoardsList>
         </Container>
       </Box>
-      <Box
-        display="flex"
-        flexDirection="row"
-        bg="primary"
-        justifyContent="space-between"
-        alignItems="center"
-        paddingVertical="large"
-        paddingHorizontal="xxlarge"
-      >
-        <RetroBoardLogoWhite height={22} />
-        <Button.Link secondary onClick={redirectToFAQ}>
-          Segurança
-        </Button.Link>
+      <Box display="flex" alignItems="flex-end" height="100%">
+        <Box
+          display="flex"
+          flexDirection="row"
+          bg="primary"
+          justifyContent="space-between"
+          alignItems="flex-start"
+          paddingVertical="large"
+          paddingHorizontal="xxlarge"
+          width="100%"
+        >
+          <RetroBoardLogoWhite height={22} />
+          <Button.Link secondary onClick={redirectToFAQ}>
+            Segurança
+          </Button.Link>
+        </Box>
       </Box>
     </Page>
   )
