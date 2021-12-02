@@ -1,8 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { theme, Container, Row, Col, Text, Button, Input } from '@gympass/yoga'
-import { LogOut } from 'react-feather'
+import {
+  theme,
+  Container,
+  Row,
+  Col,
+  Text,
+  Button,
+  Input,
+  Box,
+} from '@gympass/yoga'
+import { LogOut } from '@gympass/yoga-icons'
 
 import { addNewBoard } from '@services/firebase'
 
@@ -17,16 +26,6 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${theme.spacing.xxxlarge}px;
-`
-
-const ButtonContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-const ButtonText = styled.span`
-  margin-left: ${theme.spacing.xsmall}px;
 `
 
 const BoardsList = styled.ul`
@@ -103,38 +102,37 @@ export default function Profile() {
     <Page>
       <Container fluid>
         <Header>
-          <Text.H1>Seus boards</Text.H1>
-          <Button.Text onClick={signOut}>
-            <ButtonContent>
-              <LogOut width={18} height={18} />
-              <ButtonText>Sair</ButtonText>
-            </ButtonContent>
-          </Button.Text>
+          <Text.H3>Seus boards</Text.H3>
+          <Button.Outline icon={LogOut} onClick={signOut}>
+            Sair
+          </Button.Outline>
         </Header>
         <BoardsList>
-          {userBoards.length > 0 ? (
-            userBoards.map(({ id, name }) => (
-              <Row key={id}>
-                <Col xxs={12} lg-start={5} lg={4}>
-                  <BoardListItem onClick={gotToBoard(id)}>
-                    <Text>{name}</Text>
-                    <RemoveIcon
-                      className="delete-icon"
-                      width={20}
-                      height={20}
-                      onClick={removeBoard(id)}
-                    />
-                  </BoardListItem>
+          <Box marginTop="medium">
+            {userBoards.length > 0 ? (
+              userBoards.map(({ id, name }) => (
+                <Row key={id}>
+                  <Col xxs={12} xl-start={4} xl={6}>
+                    <BoardListItem onClick={gotToBoard(id)}>
+                      <Text>{name}</Text>
+                      <RemoveIcon
+                        className="delete-icon"
+                        width={20}
+                        height={20}
+                        onClick={removeBoard(id)}
+                      />
+                    </BoardListItem>
+                  </Col>
+                </Row>
+              ))
+            ) : (
+              <Row>
+                <Col xxs={12}>
+                  <EmptyMessage>Nenhum board...</EmptyMessage>
                 </Col>
               </Row>
-            ))
-          ) : (
-            <Row>
-              <Col xxs={12}>
-                <EmptyMessage>Nenhum board...</EmptyMessage>
-              </Col>
-            </Row>
-          )}
+            )}
+          </Box>
           <Row>
             <Col xxs={12} lg-start={5} lg={4}>
               <AddNewBoard>
