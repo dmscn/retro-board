@@ -8,7 +8,6 @@ import {
   subscribeToBoard,
   updateBoardById,
   followBoard,
-  unfollowBoard,
   getOnlineUsersInBoard,
 } from '@services/firebase'
 
@@ -16,7 +15,6 @@ import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
 import ColumnsList from './ColumnsList'
 import OnlineUsersRow from './OnlineUsersRow'
-import useUnload from '@hooks/useUnload'
 
 const ScrollbarWithPadding = styled(Scrollbar)`
   padding: ${theme.spacing.medium}px;
@@ -67,8 +65,6 @@ export default function Board() {
 
     return subscribeToBoard(slug, setBoard)
   }, [])
-
-  useUnload(() => unfollowBoard(slug))
 
   React.useEffect(() => {
     let isMounted = true

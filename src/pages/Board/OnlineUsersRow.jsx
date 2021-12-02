@@ -38,7 +38,7 @@ export default function OnlineUsersRow({ onlineUsers = [], boardName, slug }) {
             key={user.id}
             className="user-avatar"
             picture={user.photoURL}
-            color={tokens.colors.success}
+            style={{ cursor: 'default' }}
           />
         ))}
       </Box>

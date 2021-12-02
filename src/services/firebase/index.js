@@ -206,13 +206,6 @@ export const followBoard = slug =>
     onlineUsers: firebase.firestore.FieldValue.arrayUnion(getCurrentUser().uid),
   })
 
-export const unfollowBoard = slug =>
-  BoardsCollection.doc(slug).update({
-    onlineUsers: firebase.firestore.FieldValue.arrayRemove(
-      getCurrentUser().uid
-    ),
-  })
-
 export const getBoardById = id =>
   BoardsCollection.doc(id)
     .get()
