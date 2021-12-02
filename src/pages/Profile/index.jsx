@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import RetroBoardLogoWhite from '@assets/img/logos/retro-board-white.svg'
 import {
   theme,
   Container,
@@ -98,6 +99,8 @@ export default function Profile() {
     removeBoardById(id)
   }
 
+  const redirectToFAQ = () => history.push(`/security`)
+
   return (
     <Page>
       <Box padding="xxxlarge">
@@ -156,6 +159,20 @@ export default function Profile() {
             </Row>
           </BoardsList>
         </Container>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="row"
+        bg="primary"
+        justifyContent="space-between"
+        alignItems="center"
+        paddingVertical="large"
+        paddingHorizontal="xxlarge"
+      >
+        <RetroBoardLogoWhite height={22} />
+        <Button.Link secondary onClick={redirectToFAQ}>
+          Segurança
+        </Button.Link>
       </Box>
     </Page>
   )

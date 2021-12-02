@@ -45,7 +45,7 @@ const NavBar = ({ inverted = false }) => {
           <RetroBoardLogoWhite height={22} onClick={goToProfile} />
         )}
       </LogoWrapper>
-      {!inverted && (
+      {user && !inverted && (
         <Box
           display="flex"
           alignItems="center"

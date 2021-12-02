@@ -10,6 +10,7 @@ import Board from '@pages/Board'
 import Welcome from '@pages/Welcome'
 import Profile from '@pages/Profile'
 import PDFPreview from '@pages/PDFPreview'
+import Security from '@pages/Security'
 
 const theme = createTheme(tokens => ({
   colors: {
@@ -47,6 +48,9 @@ function App() {
             </AuthProtectecdRoute>
             <Route path="/export/preview">
               <PDFPreview />
+            </Route>
+            <Route path="/security">
+              <Security />
             </Route>
             <Route path="/">
               <Welcome />
