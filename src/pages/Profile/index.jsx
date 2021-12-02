@@ -100,61 +100,63 @@ export default function Profile() {
 
   return (
     <Page>
-      <Container fluid>
-        <Header>
-          <Text.H3>Seus boards</Text.H3>
-          <Button.Outline icon={LogOut} onClick={signOut}>
-            Sair
-          </Button.Outline>
-        </Header>
-        <BoardsList>
-          <Box marginTop="medium">
-            {userBoards.length > 0 ? (
-              userBoards.map(({ id, name }) => (
-                <Row key={id}>
-                  <Col xxs={12} xl-start={4} xl={6}>
-                    <BoardListItem onClick={gotToBoard(id)}>
-                      <Text>{name}</Text>
-                      <RemoveIcon
-                        className="delete-icon"
-                        width={20}
-                        height={20}
-                        onClick={removeBoard(id)}
-                      />
-                    </BoardListItem>
+      <Box padding="xxxlarge">
+        <Container fluid>
+          <Header>
+            <Text.H3>Seus boards</Text.H3>
+            <Button.Outline icon={LogOut} onClick={signOut}>
+              Sair
+            </Button.Outline>
+          </Header>
+          <BoardsList>
+            <Box marginTop="medium">
+              {userBoards.length > 0 ? (
+                userBoards.map(({ id, name }) => (
+                  <Row key={id}>
+                    <Col xxs={12} xl-start={4} xl={6}>
+                      <BoardListItem onClick={gotToBoard(id)}>
+                        <Text>{name}</Text>
+                        <RemoveIcon
+                          className="delete-icon"
+                          width={20}
+                          height={20}
+                          onClick={removeBoard(id)}
+                        />
+                      </BoardListItem>
+                    </Col>
+                  </Row>
+                ))
+              ) : (
+                <Row>
+                  <Col xxs={12}>
+                    <EmptyMessage>Nenhum board...</EmptyMessage>
                   </Col>
                 </Row>
-              ))
-            ) : (
-              <Row>
-                <Col xxs={12}>
-                  <EmptyMessage>Nenhum board...</EmptyMessage>
-                </Col>
-              </Row>
-            )}
-          </Box>
-          <Row>
-            <Col xxs={12} lg-start={5} lg={4}>
-              <AddNewBoard>
-                <Input
-                  placeholder="Título do novo board 📌"
-                  value={boardName}
-                  onChange={e => setBoardName(e.target.value)}
-                  label=""
-                  cleanable={false}
-                  full
-                />
-                <Button.Outline
-                  className="yoga-button"
-                  onClick={createNewBoard}
-                >
-                  Criar
-                </Button.Outline>
-              </AddNewBoard>
-            </Col>
-          </Row>
-        </BoardsList>
-      </Container>
+              )}
+            </Box>
+            <Row>
+              <Col xxs={12} lg-start={5} lg={4}>
+                <AddNewBoard>
+                  <Input
+                    placeholder="Título do novo board 📌"
+                    value={boardName}
+                    onChange={e => setBoardName(e.target.value)}
+                    label=""
+                    cleanable={false}
+                    full
+                  />
+                  <Button.Outline
+                    className="yoga-button"
+                    onClick={createNewBoard}
+                  >
+                    Criar
+                  </Button.Outline>
+                </AddNewBoard>
+              </Col>
+            </Row>
+          </BoardsList>
+        </Container>
+      </Box>
     </Page>
   )
 }
