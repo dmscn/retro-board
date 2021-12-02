@@ -32,14 +32,16 @@ export default function OnlineUsersRow({ onlineUsers = [], boardName, slug }) {
 
   return (
     <Wrapper>
-      {onlineUsers.map(user => (
-        <Avatar
-          key={user.id}
-          className="user-avatar"
-          picture={user.photoURL}
-          color={tokens.colors.success}
-        />
-      ))}
+      <Box display="flex" flexDirection="row">
+        {onlineUsers.map(user => (
+          <Avatar
+            key={user.id}
+            className="user-avatar"
+            picture={user.photoURL}
+            color={tokens.colors.success}
+          />
+        ))}
+      </Box>
       <Box
         display="flex"
         flexGrow={1}
