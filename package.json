@@ -10,8 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "pretty-quick --pattern '**/*.*(js|jsx)' --verbose",
     "lint": "eslint \"**/*.{js,jsx}\" --quiet",
-    "lint:fix": "npm run lint -- --fix ",
-    "predeploy": "npm run build"
+    "lint:fix": "npm run lint -- --fix "
   },
   "husky": {
     "hooks": {
