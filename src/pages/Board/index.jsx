@@ -13,6 +13,7 @@ import {
 
 import Page from '@components/Page'
 import Scrollbar from '@components/Scrollbar'
+import Footer from '@components/Footer'
 import ColumnsList from './ColumnsList'
 import OnlineUsersRow from './OnlineUsersRow'
 
@@ -108,6 +109,7 @@ export default function Board() {
           <ColumnsList />
         </ScrollbarWithPadding>
       </BoardProvider>
+      <Footer />
     </Page>
   )
 }

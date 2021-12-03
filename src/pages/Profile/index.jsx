@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import RetroBoardLogoWhite from '@assets/img/logos/retro-board-white.svg'
+
 import {
   theme,
   Container,
@@ -20,6 +20,7 @@ import Page from '@components/Page'
 import { useAuth } from '@contexts/auth'
 import { removeBoardById } from '@services/firebase'
 import RemoveIcon from '@components/RemoveIcon'
+import Footer from '@components/Footer'
 
 const ANIMATION_DURATION = 200
 
@@ -99,8 +100,6 @@ export default function Profile() {
     removeBoardById(id)
   }
 
-  const redirectToFAQ = () => history.push(`/security`)
-
   return (
     <Page>
       <Box padding="xxxlarge">
@@ -161,23 +160,7 @@ export default function Profile() {
           </BoardsList>
         </Container>
       </Box>
-      <Box display="flex" alignItems="flex-end" height="100%">
-        <Box
-          display="flex"
-          flexDirection="row"
-          bg="primary"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          paddingVertical="large"
-          paddingHorizontal="xxlarge"
-          width="100%"
-        >
-          <RetroBoardLogoWhite height={22} />
-          <Button.Link secondary onClick={redirectToFAQ}>
-            Segurança
-          </Button.Link>
-        </Box>
-      </Box>
+      <Footer style={{ height: '100%' }} />
     </Page>
   )
 }

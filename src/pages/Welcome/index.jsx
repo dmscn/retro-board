@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Container, Button, Text, Box } from '@gympass/yoga'
 import WelcomeIllustration from '@assets/img/illustrations/svg/welcome.svg'
 import Page from '@components/Page'
+import Footer from '@components/Footer'
 import GoogleLogo from '@assets/img/logos/google.svg'
 import { useAuth } from '@contexts/auth'
 
@@ -65,6 +66,7 @@ export default function Welcome() {
           <Text.Regular>{LGPD_COMPLIENCE_TEXT}</Text.Regular>
         </Box>
       </Box>
+      <Footer />
     </Page>
   )
 }
