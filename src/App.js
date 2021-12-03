@@ -11,6 +11,8 @@ import Welcome from '@pages/Welcome'
 import Profile from '@pages/Profile'
 import PDFPreview from '@pages/PDFPreview'
 import Security from '@pages/Security'
+import Policy from '@pages/Policy'
+import Terms from '@pages/Terms'
 
 const theme = createTheme(tokens => ({
   colors: {
@@ -51,6 +53,12 @@ function App() {
             </Route>
             <Route path="/security">
               <Security />
+            </Route>
+            <Route path="/policy">
+              <Policy />
+            </Route>
+            <Route path="/terms">
+              <Terms />
             </Route>
             <Route path="/">
               <Welcome />
