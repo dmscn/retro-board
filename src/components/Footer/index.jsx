@@ -1,8 +1,11 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import { Box, Button } from '@gympass/yoga'
 import RetroBoardLogoWhite from '@assets/img/logos/retro-board-white.svg'
 
 export default function Footer({ style }) {
+  const { history } = useHistory()
+
   const redirectToSecurity = () => history.push(`/security`)
   const redirectToTerms = () => history.push(`/terms`)
   const redirectToPolicy = () => history.push(`/policy`)
