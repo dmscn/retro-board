@@ -4,7 +4,7 @@ import { Box, Button } from '@gympass/yoga'
 import RetroBoardLogoWhite from '@assets/img/logos/retro-board-white.svg'
 
 export default function Footer({ style }) {
-  const { history } = useHistory()
+  let history = useHistory()
 
   const redirectToSecurity = () => history.push(`/security`)
   const redirectToTerms = () => history.push(`/terms`)
